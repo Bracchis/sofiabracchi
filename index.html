@@ -55,24 +55,246 @@
         .step-desc { font-size: 1.05rem; line-height: 1.9; color: #D1CFC9; max-width: 550px; font-weight: 300; }
         .scroll-section-spacer { height: 50vh; width: 100%; }
 
-        .philosophy-section { padding: 180px 12vw; background-color: var(--bg-color); text-align: left; position: relative; z-index: 5; display: flex; flex-direction: column; gap: 40px; }
-        .philosophy-label { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-color); font-weight: 400; }
-        .philosophy-text { font-family: var(--font-serif); font-size: 3rem; line-height: 1.4; color: var(--text-color); max-width: 950px; font-weight: 300; }
-        .philosophy-text span { display: inline-block; transition: transform 0.2s ease-out, color 0.3s ease; cursor: default; will-change: transform; }
-        
-        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); width: 100vw; background-color: var(--bg-color); z-index: 5; position: relative; }
-        .portfolio-item { width: 100%; overflow: hidden; aspect-ratio: 1 / 1; }
-        .portfolio-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .portfolio-item:hover img { transform: scale(1.04); }
+        /* SEZIONE FILOSOFIA */
+        .philosophy-section { 
+            padding: 180px 12vw; 
+            background-color: var(--bg-color); 
+            text-align: left; 
+            position: relative; 
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .philosophy-label {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            font-weight: 400;
+        }
+        .philosophy-text { 
+            font-family: var(--font-serif); 
+            font-size: 3rem; 
+            line-height: 1.4;
+            color: var(--text-color);
+            max-width: 950px;
+            font-weight: 300;
+        }
 
-        .testimonials-parallax-section { position: relative; background-color: var(--bg-color); padding: 100px 0; width: 100vw; min-height: 220vh; overflow: hidden; z-index: 5; }
-        .testimonials-bg-title { position: sticky; top: 40vh; width: 100%; text-align: center; opacity: 0.12; will-change: transform; }
-        .testimonials-bg-title h2 { font-size: 7.5vw; font-weight: 200; text-transform: uppercase; letter-spacing: 4px; }
-        .testimonials-bg-title .serif-italic { font-size: 8.5vw; color: var(--text-color); opacity: 0.8; margin-top: 10px; }
-        .testimonials-container { position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto; padding: 100px 5vw; display: flex; justify-content: space-between; gap: 40px; }
-        .testimonial-card { background: #ffffff; padding: 40px; width: 30%; box-shadow: 0 30px 60px rgba(0,0,0,0.03); border: 1px solid rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 20px; margin-top: 100px; will-change: transform; }
+      .philosophy-text span {
+    display: inline-block;
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), color 0.3s ease;
+    cursor: default;
+    will-change: transform;
+}
+        .philosophy-sub {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555555;
+            max-width: 550px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* PORTFOLIO GRID */
+        .portfolio-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 0; 
+            padding: 0; 
+            margin: 0;
+            width: 100vw;
+            background-color: var(--bg-color); 
+            position: relative; 
+            z-index: 5; 
+        }
+        .portfolio-item {
+            width: 100%;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+        .portfolio-img-box { 
+            width: 100%;
+            height: 100%;
+        }
+        .portfolio-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* SEZIONE TESTIMONIALS (STICKY TITLE + PARALLAX FLOW) */
+       /* SEZIONE TESTIMONIALS (Sticky Title + Overlapping Cards) */
+.testimonials-parallax-section {
+    position: relative;
+    background-color: var(--bg-color);
+    padding: 100px 0;
+    width: 100vw;
+    min-height: 250vh; /* Aumentato per dare spazio al movimento */
+    overflow: hidden;
+    z-index: 5;
+}
+
+.testimonials-bg-title {
+    position: sticky;
+    top: 40vh;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+.testimonials-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 150vh; /* Spazio dove le card scorrono */
+}
+
+.testimonial-card {
+    position: absolute; /* Fondamentale per sovrapporle */
+    background: #ffffff;
+    padding: 40px;
+    width: 350px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    will-change: transform;
+}
+
+/* Posizionamento casuale asimmetrico */
+.testimonial-card:nth-child(1) { top: 10vh; left: 10%; }
+.testimonial-card:nth-child(2) { top: 40vh; right: 10%; }
+.testimonial-card:nth-child(3) { top: 70vh; left: 25%; }
+
+.testimonial-profile { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.testimonial-profile img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+        .testimonials-bg-title {
+            position: sticky;
+            top: 40vh; /* Ancorato perfettamente fisso a metà schermo */
+            width: 100%;
+            text-align: center;
+            z-index: 1; /* Sotto le schede */
+            pointer-events: none;
+            opacity: 0.12;
+            will-change: transform;
+        }
+        .testimonials-bg-title h2 {
+            font-size: 7.5vw;
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+        }
+     /* Correzione Testimonials: il colore del 'di me' */
+.testimonials-bg-title .serif-italic {
+    font-size: 8.5vw;
+    display: block;
+    margin-top: 10px;
+    color: var(--text-color); /* CAMBIATO: ora è leggibile */
+    opacity: 0.8;
+}
+
+        .testimonials-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 5vw; /* Aggiunto padding per spaziarle */
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.testimonial-card {
+    background: #ffffff;
+    padding: 40px;
+    width: 30%; /* Più armonico con display flex */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    will-change: transform;
+    margin-top: 100px; /* Spazio iniziale */
+}
+
+        /* Disposizione iniziale asimmetrica a scaglioni */
+        .testimonial-card:nth-child(1) { top: 0; left: 6vw; }
+        .testimonial-card:nth-child(2) { top: 35vh; right: 8vw; }
+        .testimonial-card:nth-child(3) { top: 75vh; left: 32vw; }
+
+        .testimonial-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .testimonial-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+        .testimonial-stars {
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+        .testimonial-quote {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444444;
+            font-weight: 300;
+        }
+        .testimonial-author {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #F0EFEA;
+        }
+
+/* Gamification Filosofia: aggiungiamo una classe per le parole */
+.philosophy-text span {
+    display: inline-block;
+    transition: transform 0.2s ease-out;
+    cursor: default;
+}
         
-        @media (max-width: 992px) { nav { display: none; } .hero h1 { font-size: 6vw; } .portfolio-grid { grid-template-columns: 1fr; } }
+        footer { padding: 100px 8vw; background-color: #111111; color: #FAF9F6; display: flex; justify-content: space-between; position: relative; z-index: 5; }
+
+        
+        @media (max-width: 992px) { 
+            nav { display: none; } .hero h1 { font-size: 6vw; } 
+             header { padding: 25px 30px; }
+            .hero h1 { font-size: 6vw; }
+            .serif-italic { font-size: 7vw; }
+    
+            
+            .philosophy-section { padding: 100px 6vw; }
+            .philosophy-text { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        
+         /* Testimonials Mobile fallback */
+            .testimonials-parallax-section { padding: 80px 0; min-height: auto; }
+            .testimonials-bg-title { position: relative; top: 0; opacity: 0.2; margin-bottom: 40px; }
+            .testimonials-bg-title h2 { font-size: 10vw; }
+            .testimonials-bg-title .serif-italic { font-size: 11vw; }
+            .testimonials-container { display: flex; flex-direction: column; gap: 30px; padding: 0 6vw; }
+            .testimonial-card { position: relative; width: 100%; top: auto !important; left: auto !important; right: auto !important; transform: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -126,40 +348,83 @@
             <div class="portfolio-item"><div class="portfolio-img-box"><img src="assets/img/capramara_beer.jpeg" alt="Portfolio"></div></div>
         </section>
 
-        <section class="testimonials-parallax-section" id="recensioni">
-            <div class="testimonials-bg-title"><h2>Cosa dicono <span class="serif-italic">di me</span></h2></div>
-            <div class="testimonials-container">
-                <div class="testimonial-card"><div class="testimonial-profile"><div class="testimonial-stars">★★★★★</div></div><p class="testimonial-quote">Lavorare con Sofia ha ridefinito la percezione del nostro brand.</p><div class="testimonial-author">Eleonora Rizzoli</div></div>
-                <div class="testimonial-card"><div class="testimonial-profile"><div class="testimonial-stars">★★★★★</div></div><p class="testimonial-quote">La cura maniacale per i dettagli invisibili è ciò che la differenzia.</p><div class="testimonial-author">Matteo Fontana</div></div>
-                <div class="testimonial-card"><div class="testimonial-profile"><div class="testimonial-stars">★★★★★</div></div><p class="testimonial-quote">Estetica d'avanguardia unita ad una pulizia del codice spiazzante.</p><div class="testimonial-author">Clara Marangoni</div></div>
+       <section class="testimonials-parallax-section" id="recensioni">
+    <div class="testimonials-bg-title">
+        <h2>Cosa dicono <span class="serif-italic">di me</span></h2>
+    </div>
+    <div class="testimonials-container">
+        <div class="testimonial-card">
+            <div class="testimonial-profile">
+                <img src="URL_IMMAGINE_1" alt="Cliente">
+                <div class="testimonial-stars">★★★★★</div>
             </div>
-        </section>
+            <p class="testimonial-quote">Lavorare con Sofia ha ridefinito la percezione del nostro brand. Impeccabile.</p>
+            <div class="testimonial-author">Eleonora Rizzoli</div>
+        </div>
+        <div class="testimonial-card">
+            <div class="testimonial-profile">
+                <img src="URL_IMMAGINE_2" alt="Cliente">
+                <div class="testimonial-stars">★★★★★</div>
+            </div>
+            <p class="testimonial-quote">La cura maniacale per i dettagli invisibili è ciò che la differenzia.</p>
+            <div class="testimonial-author">Matteo Fontana</div>
+        </div>
+        <div class="testimonial-card">
+            <div class="testimonial-profile">
+                <img src="URL_IMMAGINE_3" alt="Cliente">
+                <div class="testimonial-stars">★★★★★</div>
+            </div>
+            <p class="testimonial-quote">Estetica d'avanguardia unita ad una pulizia del codice spiazzante.</p>
+            <div class="testimonial-author">Clara Marangoni</div>
+        </div>
+    </div>
+</section>
     </main>
+    <footer>
+        <div>&copy; 2026 Sofia Bracchi</div>
+        <div>Studio Minimalista di Design</div>
+    </footer>
 
 <script>
-    // --- CURSORE ---
+    // 1. Inizializzazione Cursore
     const dot = document.querySelector('.custom-cursor-dot');
     const circle = document.querySelector('.custom-cursor-circle');
-    let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, circleX = 0, circleY = 0;
-    document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+    let mouseX = 0, mouseY = 0;
+    let dotX = 0, dotY = 0, circleX = 0, circleY = 0;
+
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
     function updateCursor() {
-        dotX += (mouseX - dotX) * 0.25; dotY += (mouseY - dotY) * 0.25;
-        circleX += (mouseX - circleX) * 0.12; circleY += (mouseY - circleY) * 0.12;
-        dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
-        circle.style.left = `${circleX}px`; circle.style.top = `${circleY}px`;
+        dotX += (mouseX - dotX) * 0.25;
+        dotY += (mouseY - dotY) * 0.25;
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+        dot.style.left = `${dotX}px`;
+        dot.style.top = `${dotY}px`;
+        circle.style.left = `${circleX}px`;
+        circle.style.top = `${circleY}px`;
         requestAnimationFrame(updateCursor);
     }
     updateCursor();
 
-    // --- FILOSOFIA GAMIFICATION ---
+    // 2. Gamification Filosofia
     const philosophyWords = document.querySelectorAll('.philosophy-text span');
     function animatePhilosophy() {
         philosophyWords.forEach(word => {
             const rect = word.getBoundingClientRect();
-            const dist = Math.hypot(mouseX - (rect.left + rect.width/2), mouseY - (rect.top + rect.height/2));
+            const wordX = rect.left + rect.width / 2;
+            const wordY = rect.top + rect.height / 2;
+            const dist = Math.sqrt((mouseX - wordX)**2 + (mouseY - wordY)**2);
+            
             if (dist < 200) {
+                const angle = Math.atan2(mouseY - wordY, mouseX - wordX);
                 const force = (200 - dist) / 200;
-                word.style.transform = `translate(${Math.cos(Math.atan2(mouseY-(rect.top+rect.height/2), mouseX-(rect.left+rect.width/2))) * force * 30}px, ${Math.sin(Math.atan2(mouseY-(rect.top+rect.height/2), mouseX-(rect.left+rect.width/2))) * force * 30}px) scale(${1 + force * 0.2})`;
+                const moveX = Math.cos(angle) * force * 40;
+                const moveY = Math.sin(angle) * force * 40;
+                word.style.transform = `translate(${-moveX}px, ${-moveY}px) scale(${1 + force * 0.2})`;
                 word.style.color = 'var(--accent-color)';
             } else {
                 word.style.transform = `translate(0px, 0px) scale(1)`;
@@ -169,6 +434,22 @@
         requestAnimationFrame(animatePhilosophy);
     }
     animatePhilosophy();
+        
+      // Effetto Parallasse Recensioni
+window.addEventListener('scroll', () => {
+    const section = document.getElementById('recensioni');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const scroll = window.scrollY;
+    const sectionTop = section.offsetTop;
+
+    if (scroll > sectionTop - window.innerHeight && scroll < sectionTop + section.offsetHeight) {
+        cards.forEach((card, index) => {
+            const speed = (index + 1) * 0.2;
+            const offset = (scroll - sectionTop) * speed;
+            card.style.transform = `translateY(${offset}px)`;
+        });
+    }
+});  
 
     // --- VIBRANT GLASS ORBS ---
     const canvas = document.getElementById('geometricCanvas');
