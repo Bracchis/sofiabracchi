@@ -144,6 +144,13 @@
             max-width: 950px;
             font-weight: 300;
         }
+
+      .philosophy-text span {
+    display: inline-block;
+    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), color 0.3s ease;
+    cursor: default;
+    will-change: transform;
+}
         .philosophy-sub {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -212,11 +219,14 @@
             letter-spacing: 4px;
             line-height: 1.1;
         }
-        .testimonials-bg-title .serif-italic {
-            font-size: 8.5vw;
-            display: block;
-            margin-top: 10px;
-        }
+     /* Correzione Testimonials: il colore del 'di me' */
+.testimonials-bg-title .serif-italic {
+    font-size: 8.5vw;
+    display: block;
+    margin-top: 10px;
+    color: var(--text-color); /* CAMBIATO: ora è leggibile */
+    opacity: 0.8;
+}
 
         .testimonials-container {
     position: relative;
@@ -281,6 +291,13 @@
             padding-top: 10px;
             border-top: 1px solid #F0EFEA;
         }
+
+/* Gamification Filosofia: aggiungiamo una classe per le parole */
+.philosophy-text span {
+    display: inline-block;
+    transition: transform 0.2s ease-out;
+    cursor: default;
+}
         
         footer { padding: 100px 8vw; background-color: #111111; color: #FAF9F6; display: flex; justify-content: space-between; position: relative; z-index: 5; }
 
@@ -373,7 +390,13 @@
         <!-- SEZIONE 3: FILOSOFIA -->
         <section id="filosofia" class="philosophy-section">
             <div class="philosophy-label">Pensiero</div>
-            <h2 class="philosophy-text">Non credo nel design che urla per farsi notare. Credo negli spazi bianchi capaci di respirare, nell'equilibrio millimetrico e in un'eleganza che si rivela nei dettagli invisibili.</h2>
+            <h2 class="philosophy-text" id="philosophyText">
+    <span>Non</span> <span>credo</span> <span>nel</span> <span>design</span> <span>che</span> <span>urla</span> 
+              <span>per</span> <span>farsi</span> <span>notare.</span> 
+    <span>Credo</span> <span>negli</span> <span>spazi</span> <span>bianchi</span> <span>capaci</span> <span>di</span> <span>respirare,</span> 
+    <span>nell'equilibrio</span> <span>millimetrico</span> <span>e</span> <span>in</span> <span>un'eleganza</span> <span>che</span> 
+              <span>si</span> <span>rivela</span> <span>nei</span> <span>dettagli</span> <span>invisibili.</span>
+</h2>
             <p class="philosophy-sub">Un buon progetto non si misura da quanto viene aggiunto, ma da quanto si riesce a togliere senza compromettere l'identità e la funzionalità comunicativa.</p>
         </section>
 
@@ -441,71 +464,71 @@
         <div>Studio Minimalista di Design</div>
     </footer>
 
-    <script>
-       // 1. Inizializzazione Cursore personalizzato
-const dot = document.querySelector('.custom-cursor-dot');
-const circle = document.querySelector('.custom-cursor-circle');
-let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, circleX = 0, circleY = 0;
+<script>
+    // 1. Inizializzazione Cursore e Variabili Globali
+    const dot = document.querySelector('.custom-cursor-dot');
+    const circle = document.querySelector('.custom-cursor-circle');
+    let mouseX = 0, mouseY = 0; // Dichiarate una sola volta globalmente
+    let dotX = 0, dotY = 0, circleX = 0, circleY = 0;
 
-document.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
 
-function updateCursor() {
-    dotX += (mouseX - dotX) * 0.25;
-    dotY += (mouseY - dotY) * 0.25;
-    circleX += (mouseX - circleX) * 0.12;
-    circleY += (mouseY - circleY) * 0.12;
-    
-    dot.style.left = `${dotX}px`;
-    dot.style.top = `${dotY}px`;
-    circle.style.left = `${circleX}px`;
-    circle.style.top = `${circleY}px`;
-    
-    requestAnimationFrame(updateCursor);
-}
-updateCursor();
-
-// 2. Elementi per lo Scroll
-const stickyImg = document.getElementById('stickyParallaxImg');
-const revealSteps = document.querySelectorAll('.reveal-step');
-const heroBg = document.getElementById('heroBg');
-const sectionTestimonials = document.getElementById('recensioni');
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-
-window.addEventListener('scroll', () => {
-    const scroll = window.scrollY;
-    const vh = window.innerHeight;
-    
-    // A. Zoom su Hero Cover
-    if(heroBg) {
-        heroBg.style.transform = `scale(${1 + (scroll * 0.0005)})`;
+    function updateCursor() {
+        dotX += (mouseX - dotX) * 0.25;
+        dotY += (mouseY - dotY) * 0.25;
+        circleX += (mouseX - circleX) * 0.12;
+        circleY += (mouseY - circleY) * 0.12;
+        dot.style.left = `${dotX}px`;
+        dot.style.top = `${dotY}px`;
+        circle.style.left = `${circleX}px`;
+        circle.style.top = `${circleY}px`;
+        requestAnimationFrame(updateCursor);
     }
+    updateCursor();
 
-    // B. Logica Desktop (Animazioni complesse)
-    if (window.innerWidth > 992) {
-        
-        // --- Metodo Reveal Steps ---
-        revealSteps.forEach((step) => {
-            const rect = step.getBoundingClientRect();
-            const stepCenter = rect.top + (rect.height / 2);
-            const screenCenter = vh / 2;
-            const distance = stepCenter - screenCenter;
-            const activeRange = vh * 0.4; 
+    // 2. Gamification Filosofia
+    const philosophyWords = document.querySelectorAll('.philosophy-text span');
 
-            if (Math.abs(distance) < activeRange) {
-                const factor = 1 - (Math.abs(distance) / activeRange);
-                step.style.opacity = Math.max(0, factor);
-                step.style.transform = `translateY(${distance * 0.2}px)`;
+    function animatePhilosophy() {
+        philosophyWords.forEach(word => {
+            const rect = word.getBoundingClientRect();
+            const wordX = rect.left + rect.width / 2;
+            const wordY = rect.top + rect.height / 2;
+            
+            const dist = Math.sqrt((mouseX - wordX)**2 + (mouseY - wordY)**2);
+            
+            if (dist < 200) {
+                const angle = Math.atan2(mouseY - wordY, mouseX - wordX);
+                const force = (200 - dist) / 200;
+                const moveX = Math.cos(angle) * force * 40;
+                const moveY = Math.sin(angle) * force * 40;
+                
+                word.style.transform = `translate(${-moveX}px, ${-moveY}px) scale(${1 + force * 0.2})`;
+                word.style.color = 'var(--accent-color)';
             } else {
-                step.style.opacity = 0;
+                word.style.transform = `translate(0px, 0px) scale(1)`;
+                word.style.color = 'var(--text-color)';
             }
         });
+        requestAnimationFrame(animatePhilosophy);
+    }
+    animatePhilosophy();
 
-        // --- Parallasse immagine fissa metodo ---
+    // 3. Logica Scroll (Parallasse)
+    const stickyImg = document.getElementById('stickyParallaxImg');
+    const sectionTestimonials = document.getElementById('recensioni');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+    window.addEventListener('scroll', () => {
+        const vh = window.innerHeight;
+        const scroll = window.scrollY;
+
+        // Logica Parallasse Immagine Metodo
         const sectionMetodo = document.getElementById('metodo');
-        if(sectionMetodo) {
+        if(sectionMetodo && stickyImg) {
             const sectionRect = sectionMetodo.getBoundingClientRect();
             if (sectionRect.top < vh && sectionRect.bottom > 0) {
                 const progress = Math.abs(sectionRect.top) / sectionRect.height;
@@ -513,24 +536,18 @@ window.addEventListener('scroll', () => {
             }
         }
 
-        // --- Testimonials: Titolo fisso e schede in movimento ---
+        // Logica Testimonials
         if(sectionTestimonials) {
             const tRect = sectionTestimonials.getBoundingClientRect();
-            
-            // Se la sezione è visibile
             if (tRect.top < vh && tRect.bottom > 0) {
-                // Calcoliamo quanto siamo entrati nella sezione (0 a 1)
                 const progress = (vh - tRect.top) / vh;
-                
                 testimonialCards.forEach((card, index) => {
-                    // Velocità diverse per ogni scheda (effetto asimmetrico)
                     const speeds = [40, 100, 70]; 
                     card.style.transform = `translateY(${progress * speeds[index]}px)`;
                 });
             }
         }
-    }
-});
-    </script>
+    });
+</script>
 </body>
 </html>
