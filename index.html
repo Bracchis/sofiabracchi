@@ -465,10 +465,10 @@
     </footer>
 
 <script>
-    // 1. Inizializzazione Cursore e Variabili Globali
+    // 1. Inizializzazione Cursore
     const dot = document.querySelector('.custom-cursor-dot');
     const circle = document.querySelector('.custom-cursor-circle');
-    let mouseX = 0, mouseY = 0; // Dichiarate una sola volta globalmente
+    let mouseX = 0, mouseY = 0;
     let dotX = 0, dotY = 0, circleX = 0, circleY = 0;
 
     document.addEventListener('mousemove', e => {
@@ -491,13 +491,11 @@
 
     // 2. Gamification Filosofia
     const philosophyWords = document.querySelectorAll('.philosophy-text span');
-
     function animatePhilosophy() {
         philosophyWords.forEach(word => {
             const rect = word.getBoundingClientRect();
             const wordX = rect.left + rect.width / 2;
             const wordY = rect.top + rect.height / 2;
-            
             const dist = Math.sqrt((mouseX - wordX)**2 + (mouseY - wordY)**2);
             
             if (dist < 200) {
@@ -505,7 +503,6 @@
                 const force = (200 - dist) / 200;
                 const moveX = Math.cos(angle) * force * 40;
                 const moveY = Math.sin(angle) * force * 40;
-                
                 word.style.transform = `translate(${-moveX}px, ${-moveY}px) scale(${1 + force * 0.2})`;
                 word.style.color = 'var(--accent-color)';
             } else {
@@ -517,16 +514,17 @@
     }
     animatePhilosophy();
 
-    // 3. Logica Scroll (Parallasse)
+    // 3. Logica Scroll Unificata (Performance migliore)
     const stickyImg = document.getElementById('stickyParallaxImg');
     const sectionTestimonials = document.getElementById('recensioni');
     const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const revealSteps = document.querySelectorAll('.reveal-step');
 
     window.addEventListener('scroll', () => {
         const vh = window.innerHeight;
-        const scroll = window.scrollY;
+        const scrollY = window.scrollY;
 
-        // Logica Parallasse Immagine Metodo
+        // Parallasse Immagine
         const sectionMetodo = document.getElementById('metodo');
         if(sectionMetodo && stickyImg) {
             const sectionRect = sectionMetodo.getBoundingClientRect();
@@ -536,7 +534,16 @@
             }
         }
 
-        // Logica Testimonials
+        // Reveal Steps (i 3 punti)
+        revealSteps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            if (rect.top < vh * 0.8) {
+                step.style.opacity = '1';
+                step.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Testimonials
         if(sectionTestimonials) {
             const tRect = sectionTestimonials.getBoundingClientRect();
             if (tRect.top < vh && tRect.bottom > 0) {
@@ -547,19 +554,6 @@
                 });
             }
         }
-        // 4. Logica Apparizione Reveal Step
-    const revealSteps = document.querySelectorAll('.reveal-step');
-
-    window.addEventListener('scroll', () => {
-        revealSteps.forEach(step => {
-            const rect = step.getBoundingClientRect();
-            // Quando l'elemento entra nella parte bassa dello schermo
-            if (rect.top < window.innerHeight * 0.8) {
-                step.style.opacity = '1';
-                step.style.transform = 'translateY(0)';
-                step.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-            }
-        });
     });
 </script>
 </body>
