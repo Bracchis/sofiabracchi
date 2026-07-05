@@ -547,6 +547,19 @@
                 });
             }
         }
+        // 4. Logica Apparizione Reveal Step
+    const revealSteps = document.querySelectorAll('.reveal-step');
+
+    window.addEventListener('scroll', () => {
+        revealSteps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            // Quando l'elemento entra nella parte bassa dello schermo
+            if (rect.top < window.innerHeight * 0.8) {
+                step.style.opacity = '1';
+                step.style.transform = 'translateY(0)';
+                step.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            }
+        });
     });
 </script>
 </body>
