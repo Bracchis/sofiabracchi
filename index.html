@@ -37,7 +37,14 @@
         /* Hero */
         .hero { height: 100vh; width: 100vw; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
         .hero-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .hero-bg-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(70%) grayscale(20%); }
+       
+        .hero-bg-container img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: top; /* <--- AGGIUNTO */
+    filter: brightness(70%) grayscale(20%); 
+}
         .hero-title-container { position: relative; z-index: 2; text-align: center; pointer-events: none; }
         .hero h1 { font-size: 3.5vw; font-weight: 200; text-transform: uppercase; letter-spacing: 6px; color: #ffffff; }
         .serif-italic { font-family: var(--font-serif); font-style: italic; font-weight: 300; display: block; font-size: 4.2vw; margin-top: 15px; color: #eae5df; }
@@ -212,27 +219,30 @@
         }
 
         .testimonials-container {
-            position: relative;
-            z-index: 2; /* Sopra la scritta fissa */
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5vw;
-        }
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 5vw; /* Aggiunto padding per spaziarle */
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: flex-start;
+}
 
-        /* Schede posizionate in assoluto per galleggiare e sovrapporsi */
-        .testimonial-card {
-            background: #ffffff;
-            padding: 40px;
-            width: 380px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: absolute;
-            will-change: transform;
-        }
+.testimonial-card {
+    background: #ffffff;
+    padding: 40px;
+    width: 30%; /* Più armonico con display flex */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    will-change: transform;
+    margin-top: 100px; /* Spazio iniziale */
+}
 
         /* Disposizione iniziale asimmetrica a scaglioni */
         .testimonial-card:nth-child(1) { top: 0; left: 6vw; }
@@ -432,85 +442,95 @@
     </footer>
 
     <script>
-        // Cursore personalizzato
-        const dot = document.querySelector('.custom-cursor-dot'), circle = document.querySelector('.custom-cursor-circle');
-        let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, circleX = 0, circleY = 0;
+       // 1. Inizializzazione Cursore personalizzato
+const dot = document.querySelector('.custom-cursor-dot');
+const circle = document.querySelector('.custom-cursor-circle');
+let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, circleX = 0, circleY = 0;
 
-        document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
 
-        function updateCursor() {
-            dotX += (mouseX - dotX) * 0.25; dotY += (mouseY - dotY) * 0.25;
-            circleX += (mouseX - circleX) * 0.12; circleY += (mouseY - circleY) * 0.12;
-            dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
-            circle.style.left = `${circleX}px`; circle.style.top = `${circleY}px`;
-            requestAnimationFrame(updateCursor);
-        }
-        updateCursor();
+function updateCursor() {
+    dotX += (mouseX - dotX) * 0.25;
+    dotY += (mouseY - dotY) * 0.25;
+    circleX += (mouseX - circleX) * 0.12;
+    circleY += (mouseY - circleY) * 0.12;
+    
+    dot.style.left = `${dotX}px`;
+    dot.style.top = `${dotY}px`;
+    circle.style.left = `${circleX}px`;
+    circle.style.top = `${circleY}px`;
+    
+    requestAnimationFrame(updateCursor);
+}
+updateCursor();
 
-        // Sistemi di animazione allo Scroll
-        const stickyImg = document.getElementById('stickyParallaxImg');
-        const revealSteps = document.querySelectorAll('.reveal-step');
-        const heroBg = document.getElementById('heroBg');
-        const sectionTestimonials = document.getElementById('recensioni');
-        const testimonialCards = document.querySelectorAll('.testimonial-card');
+// 2. Elementi per lo Scroll
+const stickyImg = document.getElementById('stickyParallaxImg');
+const revealSteps = document.querySelectorAll('.reveal-step');
+const heroBg = document.getElementById('heroBg');
+const sectionTestimonials = document.getElementById('recensioni');
+const testimonialCards = document.querySelectorAll('.testimonial-card');
 
-        window.addEventListener('scroll', () => {
-            const scroll = window.scrollY;
-            const vh = window.innerHeight;
-            
-            // 1. Zoom su Hero Cover
-            if(heroBg) {
-                heroBg.style.transform = `scale(${1 + (scroll * 0.0005)})`;
-            }
+window.addEventListener('scroll', () => {
+    const scroll = window.scrollY;
+    const vh = window.innerHeight;
+    
+    // A. Zoom su Hero Cover
+    if(heroBg) {
+        heroBg.style.transform = `scale(${1 + (scroll * 0.0005)})`;
+    }
 
-            // 2. Controllo di scorrimento/rivelazione dei punti nel metodo (Desktop Only)
-            if (window.innerWidth > 992) {
-                revealSteps.forEach((step) => {
-                    const rect = step.getBoundingClientRect();
-                    const stepCenter = rect.top + (rect.height / 2);
-                    const screenCenter = vh / 2;
-                    const distance = stepCenter - screenCenter;
-                    const activeRange = vh * 0.6; 
+    // B. Logica Desktop (Animazioni complesse)
+    if (window.innerWidth > 992) {
+        
+        // --- Metodo Reveal Steps ---
+        revealSteps.forEach((step) => {
+            const rect = step.getBoundingClientRect();
+            const stepCenter = rect.top + (rect.height / 2);
+            const screenCenter = vh / 2;
+            const distance = stepCenter - screenCenter;
+            const activeRange = vh * 0.4; 
 
-                    if (Math.abs(distance) < activeRange) {
-                        const factor = 1 - (Math.abs(distance) / activeRange);
-                        step.style.opacity = Math.pow(factor, 1.2); 
-                        step.style.transform = `translateY(${(distance * 0.1)}px)`;
-                    } else {
-                        step.style.opacity = 0;
-                        step.style.transform = distance > 0 ? 'translateY(50px)' : 'translateY(-50px)';
-                    }
-                });
-
-                // Parallasse immagine fissa metodo
-                const sectionMetodo = document.getElementById('metodo');
-                if(sectionMetodo) {
-                    const sectionRect = sectionMetodo.getBoundingClientRect();
-                    if (sectionRect.top < vh && sectionRect.bottom > 0) {
-                        const scrolledIntoSection = Math.abs(sectionRect.top);
-                        const totalSectionHeight = sectionRect.height;
-                        const progress = scrolledIntoSection / totalSectionHeight;
-                        stickyImg.style.transform = `scale(${1.02 + (progress * 0.05)}) translateY(${(progress * -20)}px)`;
-                    }
-                }
-
-                // 3. Spostamento asimmetrico delle schede recensione SOPRA il titolo fisso
-                if(sectionTestimonials) {
-                    const tRect = sectionTestimonials.getBoundingClientRect();
-                    
-                    if (tRect.top < vh && tRect.bottom > 0) {
-                        const scrollPos = (vh - tRect.top); // Calcolo scostamento relativo
-                        
-                        testimonialCards.forEach((card, index) => {
-                            // Velocità uniche differenziate per l'effetto asimmetrico galleggiante
-                            const speed = [0.22, 0.45, 0.65][index]; 
-                            const offset = [0, 80, 160][index];
-                            card.style.transform = `translateY(${(scrollPos * speed) - offset}px)`;
-                        });
-                    }
-                }
+            if (Math.abs(distance) < activeRange) {
+                const factor = 1 - (Math.abs(distance) / activeRange);
+                step.style.opacity = Math.max(0, factor);
+                step.style.transform = `translateY(${distance * 0.2}px)`;
+            } else {
+                step.style.opacity = 0;
             }
         });
+
+        // --- Parallasse immagine fissa metodo ---
+        const sectionMetodo = document.getElementById('metodo');
+        if(sectionMetodo) {
+            const sectionRect = sectionMetodo.getBoundingClientRect();
+            if (sectionRect.top < vh && sectionRect.bottom > 0) {
+                const progress = Math.abs(sectionRect.top) / sectionRect.height;
+                stickyImg.style.transform = `scale(${1.02 + (progress * 0.05)}) translateY(${(progress * -30)}px)`;
+            }
+        }
+
+        // --- Testimonials: Titolo fisso e schede in movimento ---
+        if(sectionTestimonials) {
+            const tRect = sectionTestimonials.getBoundingClientRect();
+            
+            // Se la sezione è visibile
+            if (tRect.top < vh && tRect.bottom > 0) {
+                // Calcoliamo quanto siamo entrati nella sezione (0 a 1)
+                const progress = (vh - tRect.top) / vh;
+                
+                testimonialCards.forEach((card, index) => {
+                    // Velocità diverse per ogni scheda (effetto asimmetrico)
+                    const speeds = [40, 100, 70]; 
+                    card.style.transform = `translateY(${progress * speeds[index]}px)`;
+                });
+            }
+        }
+    }
+});
     </script>
 </body>
 </html>
