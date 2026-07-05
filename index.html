@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia Bracchi | Brand & Web Designer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #FAF9F6;
+            --text-color: #1A1A1A;
+            --accent-color: #9E9182;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: auto; background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+        body { overflow-x: hidden; }
+
+        /* Effetto Grana overlay */
+        .grain-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0.03; pointer-events: none; z-index: 9999; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+
+        /* Cursore */
+        .custom-cursor-dot { width: 5px; height: 5px; background-color: var(--text-color); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); }
+        .custom-cursor-circle { width: 32px; height: 32px; border: 0.5px solid rgba(26, 26, 26, 0.25); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* Header */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 35px 50px; position: fixed; width: 100%; top: 0; z-index: 100; mix-blend-mode: difference; }
+        .logo { font-family: var(--font-sans); font-weight: 300; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; color: #FAF9F6; }
+        nav a { text-decoration: none; color: #FAF9F6; margin-left: 40px; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.9; transition: opacity 0.4s; }
+
+        /* Hero */
+        .hero { height: 100vh; width: 100vw; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .hero-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-bg-container img { width: 100%; height: 100%; object-fit: cover; filter: brightness(70%) grayscale(20%); }
+        .hero-title-container { position: relative; z-index: 2; text-align: center; pointer-events: none; }
+        .hero h1 { font-size: 3.5vw; font-weight: 200; text-transform: uppercase; letter-spacing: 6px; color: #ffffff; }
+        .serif-italic { font-family: var(--font-serif); font-style: italic; font-weight: 300; display: block; font-size: 4.2vw; margin-top: 15px; color: #eae5df; }
+
+        /* SEZIONE STICKY REVEAL */
+        .sticky-reveal-section { 
+            position: relative; 
+            background-color: #111111; 
+            color: #FAF9F6; 
+            width: 100vw;
+        }
+        
+        .sticky-background-trigger { 
+            width: 100%; 
+            height: 100vh; 
+            position: sticky; 
+            top: 0; 
+            left: 0;
+            overflow: hidden; 
+            z-index: 1; 
+        }
+        .sticky-img-wrapper { width: 100%; height: 100%; }
+        .sticky-img-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: brightness(30%) grayscale(30%);
+            will-change: transform; 
+        }
+        
+        .scroll-content-flow { 
+            position: relative;
+            z-index: 2; 
+            margin-top: -100vh;
+            width: 100%;
+            padding: 0 10vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .sticky-section-title-box { 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            width: 100%;
+        }
+        .sticky-section-title-box h2 { font-size: 3vw; font-weight: 200; text-transform: uppercase; letter-spacing: 3px; max-width: 900px; line-height: 1.4; }
+        .sticky-section-title-box h2 .serif-italic { font-size: 3.5vw; display: inline-block; margin: 0; }
+
+        .reveal-step { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            width: 100%;
+            opacity: 0; 
+            transform: translateY(80px); 
+            will-change: opacity, transform;
+        }
+        .step-number { font-family: var(--font-serif); font-size: 2.2rem; font-style: italic; color: var(--accent-color); margin-bottom: 20px; }
+        .step-title { font-weight: 300; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+        .step-desc { font-size: 1.05rem; line-height: 1.9; color: #D1CFC9; max-width: 550px; font-weight: 300; }
+        
+        .scroll-section-spacer {
+            height: 50vh;
+            width: 100%;
+        }
+
+        /* SEZIONE FILOSOFIA */
+        .philosophy-section { 
+            padding: 180px 12vw; 
+            background-color: var(--bg-color); 
+            text-align: left; 
+            position: relative; 
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .philosophy-label {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            font-weight: 400;
+        }
+        .philosophy-text { 
+            font-family: var(--font-serif); 
+            font-size: 3rem; 
+            line-height: 1.4;
+            color: var(--text-color);
+            max-width: 950px;
+            font-weight: 300;
+        }
+        .philosophy-sub {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555555;
+            max-width: 550px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* PORTFOLIO GRID */
+        .portfolio-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 0; 
+            padding: 0; 
+            margin: 0;
+            width: 100vw;
+            background-color: var(--bg-color); 
+            position: relative; 
+            z-index: 5; 
+        }
+        .portfolio-item {
+            width: 100%;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+        .portfolio-img-box { 
+            width: 100%;
+            height: 100%;
+        }
+        .portfolio-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* SEZIONE TESTIMONIALS (STICKY TITLE + PARALLAX FLOW) */
+        .testimonials-parallax-section {
+            position: relative;
+            background-color: var(--bg-color);
+            padding: 100px 0;
+            width: 100vw;
+            min-height: 220vh; /* Generoso spazio per scorrere */
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .testimonials-bg-title {
+            position: sticky;
+            top: 40vh; /* Ancorato perfettamente fisso a metà schermo */
+            width: 100%;
+            text-align: center;
+            z-index: 1; /* Sotto le schede */
+            pointer-events: none;
+            opacity: 0.12;
+            will-change: transform;
+        }
+        .testimonials-bg-title h2 {
+            font-size: 7.5vw;
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+        }
+        .testimonials-bg-title .serif-italic {
+            font-size: 8.5vw;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .testimonials-container {
+            position: relative;
+            z-index: 2; /* Sopra la scritta fissa */
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        /* Schede posizionate in assoluto per galleggiare e sovrapporsi */
+        .testimonial-card {
+            background: #ffffff;
+            padding: 40px;
+            width: 380px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: absolute;
+            will-change: transform;
+        }
+
+        /* Disposizione iniziale asimmetrica a scaglioni */
+        .testimonial-card:nth-child(1) { top: 0; left: 6vw; }
+        .testimonial-card:nth-child(2) { top: 35vh; right: 8vw; }
+        .testimonial-card:nth-child(3) { top: 75vh; left: 32vw; }
+
+        .testimonial-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .testimonial-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+        .testimonial-stars {
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+        .testimonial-quote {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444444;
+            font-weight: 300;
+        }
+        .testimonial-author {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #F0EFEA;
+        }
+        
+        footer { padding: 100px 8vw; background-color: #111111; color: #FAF9F6; display: flex; justify-content: space-between; position: relative; z-index: 5; }
+
+        /* Responsive */
+        @media (max-width: 992px) { 
+            nav { display: none; } 
+            header { padding: 25px 30px; }
+            .hero h1 { font-size: 6vw; }
+            .serif-italic { font-size: 7vw; }
+            .sticky-section-title-box h2 { font-size: 5.5vw; } 
+            .sticky-background-trigger { position: relative; height: 40vh; }
+            .scroll-content-flow { margin-top: 0; padding: 0 6vw; }
+            .sticky-section-title-box, .reveal-step { height: auto; padding: 60px 0; opacity: 1 !important; transform: none !important; }
+            
+            .philosophy-section { padding: 100px 6vw; }
+            .philosophy-text { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+
+            /* Testimonials Mobile fallback */
+            .testimonials-parallax-section { padding: 80px 0; min-height: auto; }
+            .testimonials-bg-title { position: relative; top: 0; opacity: 0.2; margin-bottom: 40px; }
+            .testimonials-bg-title h2 { font-size: 10vw; }
+            .testimonials-bg-title .serif-italic { font-size: 11vw; }
+            .testimonials-container { display: flex; flex-direction: column; gap: 30px; padding: 0 6vw; }
+            .testimonial-card { position: relative; width: 100%; top: auto !important; left: auto !important; right: auto !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain-overlay"></div>
+    <div class="custom-cursor-dot"></div>
+    <div class="custom-cursor-circle"></div>
+
+    <header>
+        <div class="logo">S.V.</div>
+        <nav>
+            <a href="#metodo">Il Metodo</a>
+            <a href="#filosofia">Filosofia</a>
+            <a href="#portfolio">Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- SEZIONE 1: HERO -->
+        <section class="hero">
+            <div class="hero-bg-container" id="heroBg">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/6263699191341339694_0" alt="Sofia">
+            </div>
+            <div class="hero-title-container">
+                <h1>Sofia Bracchi <span class="serif-italic">progetta l'eleganza digitale</span></h1>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: STICKY REVEAL -->
+        <section id="metodo" class="sticky-reveal-section">
+            <div class="sticky-background-trigger">
+                <div class="sticky-img-wrapper">
+                    <img id="stickyParallaxImg" src="http://googleusercontent.com/image_collection/image_retrieval/6263699191341339694_0" alt="Dettaglio Estetico">
+                </div>
+            </div>
+            
+            <div class="scroll-content-flow">
+                <div class="sticky-section-title-box">
+                    <h2>Eleva il tuo brand con un <span class="serif-italic">design d'impatto</span>.</h2>
+                </div>
+                
+                <div class="reveal-step">
+                    <div class="step-number">01 / L'Identità</div>
+                    <h3 class="step-title">Il tuo brand, prima ancora di parlare</h3>
+                    <p class="step-desc">Definisco i confini estetici del tuo marchio attraverso palette silenziose e strutture tipografiche d'avanguardia.</p>
+                </div>
+                
+                <div class="reveal-step">
+                    <div class="step-number">02 / L'Esperienza</div>
+                    <h3 class="step-title">Interazioni fluide come seta</h3>
+                    <p class="step-desc">Progetto interfacce web capaci di togliere il fiato con micro-animazioni che rendono ogni transizione un piacere.</p>
+                </div>
+                
+                <div class="reveal-step">
+                    <div class="step-number">03 / La Funzionalità</div>
+                    <h3 class="step-title">La poesia incontra la logica</h3>
+                    <p class="step-desc">Ottimizzo l'intera navigazione per guidare l'utente verso l'obiettivo, eliminando il superfluo per ciò che converte.</p>
+                </div>
+
+                <div class="scroll-section-spacer"></div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: FILOSOFIA -->
+        <section id="filosofia" class="philosophy-section">
+            <div class="philosophy-label">Pensiero</div>
+            <h2 class="philosophy-text">Non credo nel design che urla per farsi notare. Credo negli spazi bianchi capaci di respirare, nell'equilibrio millimetrico e in un'eleganza che si rivela nei dettagli invisibili.</h2>
+            <p class="philosophy-sub">Un buon progetto non si misura da quanto viene aggiunto, ma da quanto si riesce a togliere senza compromettere l'identità e la funzionalità comunicativa.</p>
+        </section>
+
+        <!-- SEZIONE 4: PORTFOLIO GRID -->
+        <section id="portfolio" class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-img-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRo78ZeZ2BK7_-oA7gyoGftXqrlOqv8HB9ZqVIBiv2jbYQHNHlLOA_g88GInkvit0YzQC1pp5-UsLpexrw" alt="Minimal Interior Architecture">
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img-box">
+                    <img src="https://iso.500px.com/wp-content/uploads/2022/07/Diana-By-Mateusz-Stefanowski-2-1500x1000.jpeg" alt="Luxury Editorial Texture">
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img-box">
+                    <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQq1eu1TjA8oSn3YSZiyM6pbmtAWqIRVFa1Fst-Z9XTAYioEFDQUgdpkKkvFm81nzr9D5O48pP7exoFmK8" alt="High Fashion Editorial Moody">
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 5: COSA DICONO DI ME (TITOLO FISSO E CORPI IN PARALLASSE) -->
+        <section class="testimonials-parallax-section" id="recensioni">
+            <div class="testimonials-bg-title">
+                <h2>Cosa dicono <span class="serif-italic">di me</span></h2>
+            </div>
+
+            <div class="testimonials-container">
+                <!-- Scheda 1 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-profile">
+                        <img src="https://iso.500px.com/wp-content/uploads/2022/07/Diana-By-Mateusz-Stefanowski-2-1500x1000.jpeg" alt="Elenora R.">
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <p class="testimonial-quote">Lavorare con Sofia ha ridefinito la percezione del nostro brand. Ha ripulito la nostra struttura visiva restituendoci una presenza online dal lusso sussurrato ed impeccabile.</p>
+                    <div class="testimonial-author">Eleonora Rizzoli</div>
+                </div>
+
+                <!-- Scheda 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-profile">
+                        <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQq1eu1TjA8oSn3YSZiyM6pbmtAWqIRVFa1Fst-Z9XTAYioEFDQUgdpkKkvFm81nzr9D5O48pP7exoFmK8" alt="Matteo F.">
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <p class="testimonial-quote">La cura maniacale per i dettagli invisibili è ciò che la differenzia. Il sito web non è solo bello, ma trasmette armonia in ogni singola transizione di pagina.</p>
+                    <div class="testimonial-author">Matteo Fontana</div>
+                </div>
+
+                <!-- Scheda 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-profile">
+                        <img src="https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRo78ZeZ2BK7_-oA7gyoGftXqrlOqv8HB9ZqVIBiv2jbYQHNHlLOA_g88GInkvit0YzQC1pp5-UsLpexrw" alt="Clara M.">
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <p class="testimonial-quote">Estetica d'avanguardia unita ad una pulizia del codice spiazzante. Ha tradotto la nostra filosofia aziendale complessa in una sintesi geometrica perfetta.</p>
+                    <div class="testimonial-author">Clara Marangoni</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>&copy; 2026 Sofia Bracchi</div>
+        <div>Studio Minimalista di Design</div>
+    </footer>
+
+    <script>
+        // Cursore personalizzato
+        const dot = document.querySelector('.custom-cursor-dot'), circle = document.querySelector('.custom-cursor-circle');
+        let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0, circleX = 0, circleY = 0;
+
+        document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function updateCursor() {
+            dotX += (mouseX - dotX) * 0.25; dotY += (mouseY - dotY) * 0.25;
+            circleX += (mouseX - circleX) * 0.12; circleY += (mouseY - circleY) * 0.12;
+            dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
+            circle.style.left = `${circleX}px`; circle.style.top = `${circleY}px`;
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Sistemi di animazione allo Scroll
+        const stickyImg = document.getElementById('stickyParallaxImg');
+        const revealSteps = document.querySelectorAll('.reveal-step');
+        const heroBg = document.getElementById('heroBg');
+        const sectionTestimonials = document.getElementById('recensioni');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const vh = window.innerHeight;
+            
+            // 1. Zoom su Hero Cover
+            if(heroBg) {
+                heroBg.style.transform = `scale(${1 + (scroll * 0.0005)})`;
+            }
+
+            // 2. Controllo di scorrimento/rivelazione dei punti nel metodo (Desktop Only)
+            if (window.innerWidth > 992) {
+                revealSteps.forEach((step) => {
+                    const rect = step.getBoundingClientRect();
+                    const stepCenter = rect.top + (rect.height / 2);
+                    const screenCenter = vh / 2;
+                    const distance = stepCenter - screenCenter;
+                    const activeRange = vh * 0.6; 
+
+                    if (Math.abs(distance) < activeRange) {
+                        const factor = 1 - (Math.abs(distance) / activeRange);
+                        step.style.opacity = Math.pow(factor, 1.2); 
+                        step.style.transform = `translateY(${(distance * 0.1)}px)`;
+                    } else {
+                        step.style.opacity = 0;
+                        step.style.transform = distance > 0 ? 'translateY(50px)' : 'translateY(-50px)';
+                    }
+                });
+
+                // Parallasse immagine fissa metodo
+                const sectionMetodo = document.getElementById('metodo');
+                if(sectionMetodo) {
+                    const sectionRect = sectionMetodo.getBoundingClientRect();
+                    if (sectionRect.top < vh && sectionRect.bottom > 0) {
+                        const scrolledIntoSection = Math.abs(sectionRect.top);
+                        const totalSectionHeight = sectionRect.height;
+                        const progress = scrolledIntoSection / totalSectionHeight;
+                        stickyImg.style.transform = `scale(${1.02 + (progress * 0.05)}) translateY(${(progress * -20)}px)`;
+                    }
+                }
+
+                // 3. Spostamento asimmetrico delle schede recensione SOPRA il titolo fisso
+                if(sectionTestimonials) {
+                    const tRect = sectionTestimonials.getBoundingClientRect();
+                    
+                    if (tRect.top < vh && tRect.bottom > 0) {
+                        const scrollPos = (vh - tRect.top); // Calcolo scostamento relativo
+                        
+                        testimonialCards.forEach((card, index) => {
+                            // Velocità uniche differenziate per l'effetto asimmetrico galleggiante
+                            const speed = [0.22, 0.45, 0.65][index]; 
+                            const offset = [0, 80, 160][index];
+                            card.style.transform = `translateY(${(scrollPos * speed) - offset}px)`;
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
