@@ -12,8 +12,11 @@
     <style>
         :root {
             --bg-color: #0b0813;
+            --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
+            --accent-neutral-glow: rgba(163, 150, 137, 0.25);
             --accent-pink: #ff65a3;
             --accent-pink-glow: rgba(255, 101, 163, 0.25);
+            --accent-blue: #4d61ff;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --glass-bg: rgba(255, 255, 255, 0.02);
@@ -84,7 +87,7 @@
         .custom-cursor.expand .cursor-ring {
             width: 56px;
             height: 56px;
-            border-color: var(--accent-pink);
+            border-color: var(accent-neutral);
             background-color: rgba(255, 101, 163, 0.05);
         }
 
@@ -249,7 +252,7 @@
             font-style: italic;
             font-weight: 400;
             letter-spacing: 0em;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent-pink) 100%);
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -322,7 +325,7 @@
         .works-title-center span.italic-font {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent-pink) 100%);
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -498,7 +501,7 @@
         .reviews-title span.italic-font {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent-pink) 100%);
+            background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -569,7 +572,7 @@
         .stars-container svg {
             width: 15px;
             height: 15px;
-            fill: var(--accent-pink);
+            fill: var(--accent-neutral);
         }
 
         .quote-mark {
