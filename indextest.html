@@ -1189,7 +1189,7 @@ function updateCardStacking() {
         if (diff < 0) {
             // --- CARD GIÀ PASSATE (Si impilano sotto, verso l'alto) ---
             // Si spostano leggermente verso l'alto e rimpiccioliscono creando l'effetto mazzo
-            translateY = diff * 35;
+            translateY = diff * 35; 
             scale = 1 + (diff * 0.05); // -5% di grandezza per ogni livello sotto
             translateZ = diff * 40;
             opacity = Math.max(0, 1 + (diff * 0.7)); // Svanisce dolcemente se scende troppo sotto il mazzo
@@ -1198,7 +1198,7 @@ function updateCardStacking() {
         } else if (diff >= 0 && diff <= 1) {
             // --- CARD IN ARRIVO (Si sovrappone a quella corrente) ---
             // Arriva dal basso (600px di offset iniziale) e si azzera man mano che ti avvicini
-            translateY = diff * 600;
+            translateY = diff * 600; 
             scale = 1;
             opacity = 1;
             brightness = 1;
@@ -1216,7 +1216,7 @@ function updateCardStacking() {
         card.style.transform = `translateY(${translateY}px) translateZ(${translateZ}px) scale(${scale})`;
         card.style.opacity = opacity;
         card.style.filter = `brightness(${Math.max(0.3, brightness)})`;
-       
+        
         // Gestione degli z-index dinamici per fare in modo che l'ultima arrivata stia sempre sopra
         card.style.zIndex = totalCards + index;
     });
