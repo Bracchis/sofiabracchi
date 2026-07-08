@@ -901,70 +901,71 @@
     </section>
 
     <!-- Sezione Recensioni -->
-    <section class="reviews-sticky-container">
-        <div class="reviews-sticky-viewport">
-            <h2 class="reviews-title">Cosa dicono di <span class="italic-font">me</span>.</h2>
-            <div class="cards-wrapper">
-                <!-- Card 1 -->
-                <div class="review-card" id="card1">
-                    <div class="card-header">
-                        <div class="author-avatar-wrapper">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
-                        </div>
-                        <div class="stars-container">
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                        </div>
+    <!-- Sezione Recensioni Ottimizzata -->
+<section class="reviews-sticky-container" id="reviewsSection">
+    <div class="reviews-sticky-viewport">
+        <h2 class="reviews-title">Cosa dicono di <span class="italic-font">me</span>.</h2>
+        <div class="cards-wrapper">
+            <!-- Card 1 -->
+            <div class="review-card active" data-index="0">
+                <div class="card-header">
+                    <div class="author-avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
                     </div>
-                    <span class="quote-mark">“</span>
-                    <p class="review-text">Un approccio metodologico impeccabile. Hanno trasformato la nostra complessa infrastruttura in un'esperienza digitale fluida, coerente e straordinariamente intuitiva.</p>
-                    <div class="review-author">MARCO R. — TECH LEAD</div>
-                </div>
-                <!-- Card 2 -->
-                <div class="review-card" id="card2">
-                    <div class="card-header">
-                        <div class="author-avatar-wrapper">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
-                        </div>
-                        <div class="stars-container">
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                        </div>
+                    <div class="stars-container">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </div>
-                    <span class="quote-mark">“</span>
-                    <p class="review-text">L'attenzione ai dettagli visivi e la pulizia del codice sono di un altro pianeta. Il fattore estetico minimalista si fonde perfettamente con le performance del nostro ecosistema.</p>
-                    <div class="review-author">ELENA V. — CREATIVE DIRECTOR</div>
                 </div>
-                <!-- Card 3 -->
-                <div class="review-card" id="card3">
-                    <div class="card-header">
-                        <div class="author-avatar-wrapper">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
-                        </div>
-                        <div class="stars-container">
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                        </div>
+                <span class="quote-mark">“</span>
+                <p class="review-text">Un approccio metodologico impeccabile. Hanno trasformato la nostra complessa infrastruttura in un'esperienza digitale fluida, coerente e straordinariamente intuitiva.</p>
+                <div class="review-author">MARCO R. — TECH LEAD</div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="review-card" data-index="1">
+                <div class="card-header">
+                    <div class="author-avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
                     </div>
-                    <span class="quote-mark">“</span>
-                    <p class="review-text">Puntuali, professionali e con una visione avanguardistica del web design. Hanno saputo dare forma concreta al nostro futuro aziendale in tempi record.</p>
-                    <div class="review-author">ALESSANDRO M. — CEO FOUNDER</div>
+                    <div class="stars-container">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
                 </div>
+                <span class="quote-mark">“</span>
+                <p class="review-text">L'attenzione ai dettagli visivi e la pulizia del codice sono di un altro pianeta. Il fattore estetico minimalista si fonde perfettamente con le performance del nostro ecosistema.</p>
+                <div class="review-author">ELENA V. — CREATIVE DIRECTOR</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="review-card" data-index="2">
+                <div class="card-header">
+                    <div class="author-avatar-wrapper">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" alt="User Avatar" class="author-avatar">
+                    </div>
+                    <div class="stars-container">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                </div>
+                <span class="quote-mark">“</span>
+                <p class="review-text">Puntuali, professionali e con una visione avanguardistica del web design. Hanno saputo dare forma concreta al nostro futuro aziendale in tempi record.</p>
+                <div class="review-author">ALESSANDRO M. — CEO FOUNDER</div>
             </div>
         </div>
-        <div class="scroll-trigger" data-card="1"></div>
-        <div class="scroll-trigger" data-card="2"></div>
-        <div class="scroll-trigger" data-card="3"></div>
-    </section>
+    </div>
+</section>
+
 
    
     <footer class="footer">
