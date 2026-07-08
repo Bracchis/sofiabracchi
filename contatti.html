@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio. - Contatti</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #06040a;
+            --accent-pink: #ff65a3;
+            --accent-cyan: #00f0ff;
+            --accent-sad: #4a3b6e;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.01);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-blur: 30px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            width: 100%;
+            cursor: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            body { cursor: auto; }
+            .custom-cursor { display: none !important; }
+        }
+
+        /* ==========================================================================
+           PUNTATORE MOUSE PERSONALIZZATO
+           ========================================================================== */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        .cursor-ring {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.3s ease,
+                        background-color 0.3s ease;
+            z-index: 9999;
+        }
+
+        .custom-cursor.expand .cursor-ring {
+            width: 56px;
+            height: 56px;
+            border-color: var(--accent-pink);
+            background-color: rgba(255, 101, 163, 0.05);
+        }
+
+        /* ==========================================================================
+           NAVBAR (Minimal Glass)
+           ========================================================================== */
+        .navbar-container {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            background: rgba(6, 4, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-link:hover, .nav-link.home-active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.home-active {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-transform: none;
+            letter-spacing: 0.02em;
+        }
+
+        /* ==========================================================================
+           INTERFACCIA IMMERSIVA UNIFICATA
+           ========================================================================== */
+        .contact-section {
+            width: 100%;
+            padding: 120px 4% 60px 4%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Sfondo con Glow di atmosfera dinamico */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 101, 163, 0.08) 0%, rgba(0, 240, 255, 0.02) 50%, transparent 100%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+            transition: background 0.8s ease;
+        }
+
+        /* La Card Unica */
+        .immersive-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 750px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 60px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .contact-title span.italic-font {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Form Rigoroso Minimalista */
+        .minimal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .form-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.4s ease;
+            cursor: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-bottom-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 14px;
+            left: 0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+        }
+
+        .form-group input:focus ~ label,
+        .form-group input:not(:placeholder-shown) ~ label,
+        .form-group textarea:focus ~ label,
+        .form-group textarea:not(:placeholder-shown) ~ label {
+            transform: translateY(-24px);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Zona Inferiore Unificata (Invio + Faccina) */
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 40px;
+        }
+
+        .submit-btn {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 20px 40px;
+            border-radius: 100px;
+            cursor: none;
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: #ffffff;
+        }
+
+        .submit-btn .arrow-icon {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .submit-btn:hover .arrow-icon {
+            transform: translateX(6px);
+        }
+
+        /* ==========================================================================
+           IL GUARDIANO INTERATTIVO (FACCINA INTEGRATA IN BASSO)
+           ========================================================================== */
+        .character-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 140px;
+        }
+
+        #interactiveCharacter {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        /* Transizioni fluide degli elementi SVG */
+        .char-body-bg {
+            transition: fill 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .eye-white {
+            transition: ry 0.3s ease, rx 0.3s ease;
+        }
+
+        .pupil {
+            transition: rx 0.3s ease, ry 0.3s ease, fill 0.4s ease;
+        }
+
+        .char-mouth {
+            transition: d 0.3s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+        }
+
+        .character-status {
+            margin-top: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            white-space: nowrap;
+            transition: color 0.4s ease;
+        }
+
+        /* Links in fondo */
+        .direct-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 40px;
+            margin-top: 20px;
+        }
+
+        .direct-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: none;
+        }
+
+        .link-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .link-value {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .direct-link:hover .link-value {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .immersive-card { padding: 40px 24px; }
+            .form-footer { flex-direction: column; gap: 30px; }
+            .submit-btn { width: 100%; justify-content: center; }
+            .contact-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="customCursor">
+        <div class="cursor-dot" id="cursorDot"></div>
+        <div class="cursor-ring" id="cursorRing"></div>
+    </div>
+
+    <div class="navbar-container">
+        <nav class="navbar">
+            <a href="#" class="nav-logo">Studio.</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link interactable">Home</a></li>
+                <li><a href="#" class="nav-link interactable">Servizi</a></li>
+                <li><a href="#" class="nav-link interactable">Progetti</a></li>
+                <li><a href="#" class="nav-link home-active interactable">Contatti</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="contact-section">
+        <div class="ambient-glow" id="ambientGlow"></div>
+       
+        <!-- CARD UNICA IMMERSIVA -->
+        <div class="immersive-card">
+            <h2 class="contact-title">Mettiamoci in <span class="italic-font">contatto</span>.</h2>
+           
+            <form class="minimal-form" id="contactForm" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <input type="text" id="formName" class="interactable data-input" required placeholder=" ">
+                    <label for="formName">IL TUO NOME</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="formEmail" class="interactable data-input" required placeholder=" ">
+                    <label for="formEmail">LA TUA EMAIL</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="formMessage" class="interactable data-input" required placeholder=" " rows="3"></textarea>
+                    <label for="formMessage">IL TUO PROGETTO</label>
+                </div>
+               
+                <!-- FOOTER DEL FORM CON INBIO E FACCONA AFFIANCATI -->
+                <div class="form-footer">
+                    <button type="submit" class="submit-btn interactable" id="submitBtn">
+                        <span>INVIA IL MESSAGGIO</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+
+                    <!-- Faccina di controllo -->
+                    <div class="character-container">
+                        <svg id="interactiveCharacter" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Corpo Fluido -->
+                            <rect class="char-body-bg" id="charBody" width="200" height="200" rx="50" fill="#251b3d" />
+                           
+                            <!-- Occhio Sinistro -->
+                            <g id="eyeLeft">
+                                <ellipse class="eye-white" id="whiteLeft" cx="70" cy="95" rx="18" ry="22" fill="#ffffff" />
+                                <ellipse class="pupil" id="pupilLeft" cx="70" cy="95" rx="9" ry="10" fill="#06040a" />
+                            </g>
+                           
+                            <!-- Occhio Destro -->
+                            <g id="eyeRight">
+                                <ellipse class="eye-white" id="whiteRight" cx="130" cy="95" rx="18" ry="22" fill="#ffffff" />
+                                <ellipse class="pupil" id="pupilRight" cx="130" cy="95" rx="9" ry="10" fill="#06040a" />
+                            </g>
+                           
+                            <!-- Bocca Espressiva -->
+                            <path class="char-mouth" id="characterMouth" d="M 90 135 Q 100 145 110 135" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                           
+                            <!-- Particelle Euforia -->
+                            <g id="celebrationStars" style="opacity: 0; transition: opacity 0.3s ease;">
+                                <circle cx="40" cy="50" r="4" fill="var(--accent-pink)"/>
+                                <circle cx="160" cy="60" r="3" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                        <div class="character-status" id="characterStatus">Ti sto aspettando</div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="direct-links">
+                <a href="mailto:hello@tuostudio.com" class="direct-link interactable">
+                    <span class="link-label">EMAIL DIRECT</span>
+                    <span class="link-value">hello@tuostudio.com</span>
+                </a>
+                <a href="#" class="direct-link interactable">
+                    <span class="link-label">INSTAGRAM</span>
+                    <span class="link-value">@tuostudio_</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Cursore personalizzato flessibile
+        const cursor = document.getElementById('customCursor');
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let dotX = mouseX, dotY = mouseY, ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            dotX += (mouseX - dotX); dotY += (mouseY - dotY);
+            ringX += (mouseX - ringX) * 0.16; ringY += (mouseY - ringY) * 0.16;
+            dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
+            ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function bindCursorEvents() {
+            document.querySelectorAll('.interactable').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+            });
+        }
+        bindCursorEvents();
+
+        // ELEMENTI INTERATTIVI DEL PERSONAGGIO
+        const charBody = document.getElementById('charBody');
+        const pupilLeft = document.getElementById('pupilLeft');
+        const pupilRight = document.getElementById('pupilRight');
+        const whiteLeft = document.getElementById('whiteLeft');
+        const whiteRight = document.getElementById('whiteRight');
+        const mouth = document.getElementById('characterMouth');
+        const stars = document.getElementById('celebrationStars');
+        const statusText = document.getElementById('characterStatus');
+        const ambientGlow = document.getElementById('ambientGlow');
+        const submitBtn = document.getElementById('submitBtn');
+        const inputs = document.querySelectorAll('.data-input');
+
+        let isWriting = false;
+
+        // Rileva se l'utente sta scrivendo in un input
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => { isWriting = true; });
+            input.addEventListener('blur', () => { isWriting = false; });
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            // 1. Inseguimento Occhi Avanzato
+            function movePupil(pupil, centerCx, centerCy) {
+                const rect = pupil.getBoundingClientRect();
+                const eyeX = rect.left + rect.width / 2;
+                const eyeY = rect.top + rect.height / 2;
+                const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
+                const maxDistance = 7;
+                pupil.setAttribute('cx', centerCx + Math.cos(angle) * maxDistance);
+                pupil.setAttribute('cy', centerCy + Math.sin(angle) * maxDistance);
+            }
+            movePupil(pupilLeft, 70, 95);
+            movePupil(pupilRight, 130, 95);
+
+            // Calcolo distanze focali dello schermo
+            const screenCenterX = window.innerWidth / 2;
+            const screenCenterY = window.innerHeight / 2;
+            const distanceToCenter = Math.hypot(e.clientX - screenCenterX, e.clientY - screenCenterY);
+            const maxScreenDistance = Math.hypot(screenCenterX, screenCenterY);
+
+            // Distanza dal bottone invio
+            const btnRect = submitBtn.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+            const distanceToBtn = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+            // 2. MACCHINA STATI EMOTIVI
+           
+            // STATO A: Vicinanza al tasto di Invio (Euforia / Eccitato)
+            if (distanceToBtn < 150) {
+                charBody.style.fill = "var(--accent-pink)";
+                ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.15) 0%, transparent 70%)`;
+                mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130'); // Sorrisone aperto
+                mouth.setAttribute('stroke', '#ffffff');
+                whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22'); // Occhi spalancati
+                stars.style.opacity = '1';
+                statusText.innerText = "Clicca! Inviamolo!";
+                statusText.style.color = "var(--accent-pink)";
+            }
+            // STATO B: L'utente sta scrivendo nel form (Incuriosito / Attento)
+            else if (isWriting) {
+                charBody.style.fill = "#113c4c";
+                pupilLeft.setAttribute('fill', 'var(--accent-cyan)');
+                pupilRight.setAttribute('fill', 'var(--accent-cyan)');
+                ambientGlow.style.background = `radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)`;
+                mouth.setAttribute('d', 'M 95 135 L 105 135'); // Linea neutra stupita
+                whiteLeft.setAttribute('ry', '24'); whiteRight.setAttribute('ry', '24');
+                stars.style.opacity = '0';
+                statusText.innerText = "Oh, che bel progetto...";
+                statusText.style.color = "var(--accent-cyan)";
+            }
+            // STATO C: Troppo lontano dal centro (Triste / Abbandonato)
+            else if (distanceToCenter > maxScreenDistance * 0.65) {
+                charBody.style.fill = "var(--accent-sad)";
+                ambientGlow.style.background = `radial-gradient(circle, rgba(74, 59, 110, 0.1) 0%, transparent 60%)`;
+                mouth.setAttribute('d', 'M 90 145 Q 100 130 110 145'); // Bocca triste all'ingiù
+                mouth.setAttribute('stroke', 'rgba(255,255,255,0.4)');
+                whiteLeft.setAttribute('ry', '12'); whiteRight.setAttribute('ry', '12'); // Occhi socchiusi e tristi
+                pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
+                stars.style.opacity = '0';
+                statusText.innerText = "Dove stai andando? :(";
+                statusText.style.color = "var(--text-secondary)";
+            }
+            // STATO D: Stato Normale (Calmo)
+            else {
+                charBody.style.fill = "#1d1730";
+                ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.04) 0%, transparent 70%)`;
+                mouth.setAttribute('d', 'M 90 135 Q 100 145 110 135'); // Sorrisetto accennato
+                mouth.setAttribute('stroke', '#ffffff');
+                whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
+                pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
+                stars.style.opacity = '0';
+                statusText.innerText = "Ti sto osservando...";
+                statusText.style.color = "rgba(255,255,255,0.3)";
+            }
+        });
+    </script>
+</body>
+</html>
