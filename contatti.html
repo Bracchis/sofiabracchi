@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio. - Contatti</title>
+    <title>SB - Contatti</title>
    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -165,6 +165,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            overflow: hidden; /* FIX: Evita la comparsa della barra di scorrimento orizzontale su mobile */
         }
 
         /* Sfondo con Glow di atmosfera dinamico */
@@ -338,7 +339,7 @@
         }
 
         .pupil {
-            transition: rx 0.3s ease, ry 0.3s ease, fill 0.4s ease;
+            transition: rx 0.3s ease, ry 0.3s ease, fill 0.4s ease, cx 0.3s ease, cy 0.3s ease;
         }
 
         .char-mouth {
@@ -422,11 +423,10 @@
     <section class="contact-section">
         <div class="ambient-glow" id="ambientGlow"></div>
        
-        <!-- CARD UNICA IMMERSIVA -->
         <div class="immersive-card">
             <h2 class="contact-title">Mettiamoci in <span class="italic-font">contatto</span>.</h2>
            
-            <form class="minimal-form" id="contactForm" onsubmit="event.preventDefault();">
+            <form class="minimal-form" id="contactForm">
                 <div class="form-group">
                     <input type="text" id="formName" class="interactable data-input" required placeholder=" ">
                     <label for="formName">IL TUO NOME</label>
@@ -440,41 +440,36 @@
                     <label for="formMessage">IL TUO PROGETTO</label>
                 </div>
                
-                <!-- FOOTER DEL FORM CON INBIO E FACCONA AFFIANCATI -->
                 <div class="form-footer">
                     <button type="submit" class="submit-btn interactable" id="submitBtn">
                         <span>INVIA IL MESSAGGIO</span>
                         <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </button>
 
-                    <!-- Faccina di controllo -->
                     <div class="character-container">
                         <svg id="interactiveCharacter" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Corpo Fluido -->
-                            <rect class="char-body-bg" id="charBody" width="200" height="200" rx="50" fill="#251b3d" />
+                            <rect class="char-body-bg" id="charBody" width="200" height="200" rx="50" fill="#1d1730" />
                            
-                            <!-- Occhio Sinistro -->
                             <g id="eyeLeft">
                                 <ellipse class="eye-white" id="whiteLeft" cx="70" cy="95" rx="18" ry="22" fill="#ffffff" />
                                 <ellipse class="pupil" id="pupilLeft" cx="70" cy="95" rx="9" ry="10" fill="#06040a" />
                             </g>
                            
-                            <!-- Occhio Destro -->
                             <g id="eyeRight">
                                 <ellipse class="eye-white" id="whiteRight" cx="130" cy="95" rx="18" ry="22" fill="#ffffff" />
                                 <ellipse class="pupil" id="pupilRight" cx="130" cy="95" rx="9" ry="10" fill="#06040a" />
                             </g>
                            
-                            <!-- Bocca Espressiva -->
                             <path class="char-mouth" id="characterMouth" d="M 90 135 Q 100 145 110 135" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
                            
-                            <!-- Particelle Euforia -->
                             <g id="celebrationStars" style="opacity: 0; transition: opacity 0.3s ease;">
                                 <circle cx="40" cy="50" r="4" fill="var(--accent-pink)"/>
                                 <circle cx="160" cy="60" r="3" fill="#ffffff"/>
+                                <circle cx="30" cy="140" r="3" fill="var(--accent-cyan)"/>
+                                <circle cx="170" cy="130" r="4" fill="var(--accent-pink)"/>
                             </g>
                         </svg>
-                        <div class="character-status" id="characterStatus">Ti sto aspettando</div>
+                        <div class="character-status" id="characterStatus">Ti sto aspettando... ✨</div>
                     </div>
                 </div>
             </form>
@@ -532,17 +527,74 @@
         const ambientGlow = document.getElementById('ambientGlow');
         const submitBtn = document.getElementById('submitBtn');
         const inputs = document.querySelectorAll('.data-input');
+        const contactForm = document.getElementById('contactForm');
 
         let isWriting = false;
+        let isCelebrating = false;
+        const isMobileDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        // Funzione per impostare istantaneamente lo stato di scrittura (condiviso desktop/mobile)
+        function setWritingState() {
+            if (isCelebrating) return;
+            charBody.style.fill = "#113c4c";
+            pupilLeft.setAttribute('fill', 'var(--accent-cyan)');
+            pupilRight.setAttribute('fill', 'var(--accent-cyan)');
+            ambientGlow.style.background = `radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)`;
+            mouth.setAttribute('d', 'M 95 135 L 105 135'); 
+            whiteLeft.setAttribute('ry', '24'); whiteRight.setAttribute('ry', '24');
+            stars.style.opacity = '0';
+            statusText.innerText = "Oh, che bel progetto... ✍️";
+            statusText.style.color = "var(--accent-cyan)";
+        }
 
         // Rileva se l'utente sta scrivendo in un input
         inputs.forEach(input => {
-            input.addEventListener('focus', () => { isWriting = true; });
-            input.addEventListener('blur', () => { isWriting = false; });
+            input.addEventListener('focus', () => { 
+                isWriting = true; 
+                setWritingState();
+            });
+            input.addEventListener('blur', () => { 
+                isWriting = false; 
+            });
         });
 
+        // FUNZIONE FESTEGGIAMENTO AL SUBMIT
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Blocca il reload nativo per l'esempio
+            triggerCelebration();
+        });
+
+        function triggerCelebration() {
+            isCelebrating = true;
+            
+            // Animazione Visiva Euforica
+            charBody.style.fill = "var(--accent-pink)";
+            pupilLeft.setAttribute('fill', '#06040a');
+            pupilRight.setAttribute('fill', '#06040a');
+            pupilLeft.setAttribute('cx', '70'); pupilLeft.setAttribute('cy', '95');
+            pupilRight.setAttribute('cx', '130'); pupilRight.setAttribute('cy', '95');
+            
+            ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.3) 0%, transparent 70%)`;
+            mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130'); // Sorrisone aperto
+            mouth.setAttribute('stroke', '#ffffff');
+            whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22'); 
+            stars.style.opacity = '1';
+            
+            statusText.innerText = "Grazie! Inviato! 🎉";
+            statusText.style.color = "var(--accent-pink)";
+
+            // Resta in stato festa per 4 secondi, poi si resetta
+            setTimeout(() => {
+                isCelebrating = false;
+                stars.style.opacity = '0';
+            }, 4000);
+        }
+
+        // SE SEI SU DESKTOP: Tracciamento Mouse standard
         document.addEventListener('mousemove', (e) => {
-            // 1. Inseguimento Occhi Avanzato
+            if (isCelebrating || isMobileDevice) return;
+
+            // Inseguimento Occhi
             function movePupil(pupil, centerCx, centerCy) {
                 const rect = pupil.getBoundingClientRect();
                 const eyeX = rect.left + rect.width / 2;
@@ -555,68 +607,101 @@
             movePupil(pupilLeft, 70, 95);
             movePupil(pupilRight, 130, 95);
 
-            // Calcolo distanze focali dello schermo
             const screenCenterX = window.innerWidth / 2;
             const screenCenterY = window.innerHeight / 2;
             const distanceToCenter = Math.hypot(e.clientX - screenCenterX, e.clientY - screenCenterY);
             const maxScreenDistance = Math.hypot(screenCenterX, screenCenterY);
 
-            // Distanza dal bottone invio
             const btnRect = submitBtn.getBoundingClientRect();
             const btnCenterX = btnRect.left + btnRect.width / 2;
             const btnCenterY = btnRect.top + btnRect.height / 2;
             const distanceToBtn = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
 
-            // 2. MACCHINA STATI EMOTIVI
-           
-            // STATO A: Vicinanza al tasto di Invio (Euforia / Eccitato)
+            // Macchina degli stati desktop
             if (distanceToBtn < 150) {
                 charBody.style.fill = "var(--accent-pink)";
                 ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.15) 0%, transparent 70%)`;
-                mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130'); // Sorrisone aperto
+                mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130');
                 mouth.setAttribute('stroke', '#ffffff');
-                whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22'); // Occhi spalancati
-                stars.style.opacity = '1';
+                whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
                 statusText.innerText = "Clicca! Inviamolo!";
                 statusText.style.color = "var(--accent-pink)";
             }
-            // STATO B: L'utente sta scrivendo nel form (Incuriosito / Attento)
             else if (isWriting) {
-                charBody.style.fill = "#113c4c";
-                pupilLeft.setAttribute('fill', 'var(--accent-cyan)');
-                pupilRight.setAttribute('fill', 'var(--accent-cyan)');
-                ambientGlow.style.background = `radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%)`;
-                mouth.setAttribute('d', 'M 95 135 L 105 135'); // Linea neutra stupita
-                whiteLeft.setAttribute('ry', '24'); whiteRight.setAttribute('ry', '24');
-                stars.style.opacity = '0';
-                statusText.innerText = "Oh, che bel progetto...";
-                statusText.style.color = "var(--accent-cyan)";
+                setWritingState();
             }
-            // STATO C: Troppo lontano dal centro (Triste / Abbandonato)
             else if (distanceToCenter > maxScreenDistance * 0.65) {
                 charBody.style.fill = "var(--accent-sad)";
                 ambientGlow.style.background = `radial-gradient(circle, rgba(74, 59, 110, 0.1) 0%, transparent 60%)`;
-                mouth.setAttribute('d', 'M 90 145 Q 100 130 110 145'); // Bocca triste all'ingiù
+                mouth.setAttribute('d', 'M 90 145 Q 100 130 110 145');
                 mouth.setAttribute('stroke', 'rgba(255,255,255,0.4)');
-                whiteLeft.setAttribute('ry', '12'); whiteRight.setAttribute('ry', '12'); // Occhi socchiusi e tristi
+                whiteLeft.setAttribute('ry', '12'); whiteRight.setAttribute('ry', '12');
                 pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
-                stars.style.opacity = '0';
                 statusText.innerText = "Dove stai andando? :(";
                 statusText.style.color = "var(--text-secondary)";
             }
-            // STATO D: Stato Normale (Calmo)
             else {
                 charBody.style.fill = "#1d1730";
                 ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.04) 0%, transparent 70%)`;
-                mouth.setAttribute('d', 'M 90 135 Q 100 145 110 135'); // Sorrisetto accennato
+                mouth.setAttribute('d', 'M 90 135 Q 100 145 110 135');
                 mouth.setAttribute('stroke', '#ffffff');
                 whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
                 pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
-                stars.style.opacity = '0';
                 statusText.innerText = "Ti sto osservando...";
                 statusText.style.color = "rgba(255,255,255,0.3)";
             }
         });
+
+        // SE SEI SU MOBILE: Loop Autonomo di animazione di intelligenza artificiale
+        if (isMobileDevice) {
+            setInterval(() => {
+                if (isCelebrating) return;
+
+                // Se l'utente sta scrivendo attivamente, mantieni il focus visivo muovendo solo leggermente gli occhi
+                if (isWriting) {
+                    const randomX = (Math.random() - 0.5) * 6;
+                    const randomY = (Math.random() - 0.5) * 4;
+                    pupilLeft.setAttribute('cx', 70 + randomX);
+                    pupilLeft.setAttribute('cy', 93 + randomY);
+                    pupilRight.setAttribute('cx', 130 + randomX);
+                    pupilRight.setAttribute('cy', 93 + randomY);
+                    return;
+                }
+
+                // Ciclo casuale di stati "Idle autonomi"
+                const states = ['calmo', 'guarda_giro', 'pensieroso'];
+                const randomState = states[Math.floor(Math.random() * states.length)];
+
+                if (randomState === 'calmo') {
+                    charBody.style.fill = "#1d1730";
+                    ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.04) 0%, transparent 70%)`;
+                    mouth.setAttribute('d', 'M 90 135 Q 100 145 110 135');
+                    whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
+                    pupilLeft.setAttribute('cx', '70'); pupilLeft.setAttribute('cy', '95');
+                    pupilRight.setAttribute('cx', '130'); pupilRight.setAttribute('cy', '95');
+                    pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
+                    statusText.innerText = "Ti sto aspettando... ✨";
+                    statusText.style.color = "rgba(255,255,255,0.3)";
+                } 
+                else if (randomState === 'guarda_giro') {
+                    // Sceglie a caso una direzione verso cui guardare
+                    const lookRight = Math.random() > 0.5;
+                    pupilLeft.setAttribute('cx', lookRight ? '76' : '64'); pupilLeft.setAttribute('cy', '95');
+                    pupilRight.setAttribute('cx', lookRight ? '136' : '124'); pupilRight.setAttribute('cy', '95');
+                    statusText.innerText = "Dai un'occhiata in giro? 👀";
+                    statusText.style.color = "rgba(255,255,255,0.4)";
+                } 
+                else if (randomState === 'pensieroso') {
+                    charBody.style.fill = "#251b3d";
+                    ambientGlow.style.background = `radial-gradient(circle, rgba(74, 59, 110, 0.05) 0%, transparent 70%)`;
+                    mouth.setAttribute('d', 'M 90 138 Q 100 142 110 138'); // Sorrisetto timido piatto
+                    pupilLeft.setAttribute('cx', '74'); pupilLeft.setAttribute('cy', '88'); // Guarda in alto a destra
+                    pupilRight.setAttribute('cx', '134'); pupilRight.setAttribute('cy', '88');
+                    statusText.innerText = "Cosa racconterai? 🤔";
+                    statusText.style.color = "var(--text-secondary)";
+                }
+            }, 3000); // Aggiorna lo stato autonomo ogni 3 secondi
+        }
     </script>
 </body>
 </html>
