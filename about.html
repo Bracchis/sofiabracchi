@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SB - Chi Sono</title>
+    <title>SB - About</title>
    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,18 @@
     <style>
         :root {
             --bg-color: #06040a;
+            --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
+            --accent-neutral-glow: rgba(163, 150, 137, 0.25);
             --accent-pink: #ff65a3;
+             --accent-pink-glow: rgba(255, 101, 163, 0.25);
+              --accent-blue: #4d61ff;
             --accent-cyan: #00f0ff;
             --accent-purple: #8b5cf6;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
+             --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: 20px;
         }
 
         * {
@@ -75,18 +82,20 @@
             background-color: rgba(0, 240, 255, 0.05);
         }
 
-        /* ==========================================================================
-           NAVBAR
+           /* ==========================================================================
+           NAVBAR (Minimal Glass)
            ========================================================================== */
         .navbar-container {
             width: 100%;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             display: flex;
             justify-content: center;
-            background: linear-gradient(to bottom, rgba(6,4,10,0.9) 0%, rgba(6,4,10,0) 100%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
             z-index: 100;
-            padding: 20px 0;
         }
 
         .navbar {
@@ -95,7 +104,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
+            padding: 20px 20px;
         }
 
         .nav-logo {
@@ -104,12 +113,15 @@
             font-size: 1.8rem;
             color: var(--text-primary);
             text-decoration: none;
+            letter-spacing: -0.01em;
+            z-index: 120;
         }
 
         .nav-menu {
             display: flex;
             gap: 35px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-link {
@@ -119,20 +131,42 @@
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            transition: color 0.3s ease;
-            cursor: none;
+            transition: color 0.3s ease, font-family 0.3s ease, font-style 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
             color: var(--text-primary);
         }
 
         .nav-link.active {
+            color: var(--text-primary);
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 1.1rem;
             text-transform: none;
             letter-spacing: 0.02em;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            z-index: 120;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* ==========================================================================
@@ -239,11 +273,14 @@
             font-weight: 300;
         }
 
-        .bio-text p strong {
-            font-weight: 500;
-            color: var(--accent-pink);
-        }
-
+       .bio-text p strong {
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Fallback per i browser meno recenti */
+}
         /* ==========================================================================
            NUOVA SEZIONE GENERATIVA (Sostituzione Dischi con Mesh di Luci Fluide)
            ========================================================================== */
@@ -396,10 +433,112 @@
            RESPONSIVE
            ========================================================================== */
         @media (max-width: 768px) {
+           .hamburger { display: flex; }
+           
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(11, 8, 19, 1);
+                backdrop-filter: blur(40px) saturate(180%);
+                -webkit-backdrop-filter: blur(40px) saturate(180%);
+                flex-direction: column;
+                justify-content: center;
+                gap: 30px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.5s ease;
+                z-index: 110;
+            }
+
+            .nav-menu::before, .nav-menu::after {
+                content: '';
+                position: absolute;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                filter: blur(80px);
+                opacity: 0;
+                transition: opacity 0.8s ease, transform 0.8s ease;
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            .nav-menu::before {
+                background: var(--accent-pink);
+                top: 15%;
+                left: -10%;
+                transform: translate(-50px, -50px);
+            }
+
+            .nav-menu::after {
+                background: var(--accent-blue);
+                bottom: 15%;
+                right: -10%;
+                transform: translate(50px, 50px);
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-menu.active::before { opacity: 0.25; transform: translate(0, 0); }
+            .nav-menu.active::after { opacity: 0.25; transform: translate(0, 0); }
+
+            .nav-menu li {
+                transform: translateY(30px);
+                opacity: 0;
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            }
+
+            .nav-menu.active li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-menu.active li:nth-child(2) { transition-delay: 0.18s; }
+            .nav-menu.active li:nth-child(3) { transition-delay: 0.26s; }
+            .nav-menu.active li:nth-child(4) { transition-delay: 0.34s; }
+
+            .nav-link {
+                font-size: 1.6rem;
+                text-transform: uppercase;
+                display: inline-block;
+            }
+
+            .nav-link.active {
+                font-size: 2.2rem;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                width: 0;
+                height: 1px;
+                background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .nav-link:hover::after, .nav-link.active::after {
+                width: 100%;
+                left: 0;
+            }
+           
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
+       
+       
             .about-section { padding-top: 150px; padding-bottom: 100px; }
             .bio-title { font-size: 2.8rem; }
             .bg-layer-sharp { animation: roamingFocusMobile 20s infinite alternate ease-in-out; }
-            .navbar { padding: 0 20px; }
+            .navbar { padding: 20px 20px; }
            
             .cta-heading { font-size: 2.2rem; }
             .cta-button-group { flex-direction: column; gap: 16px; width: 100%; }
@@ -432,12 +571,17 @@
 
     <div class="navbar-container">
         <nav class="navbar">
-            <a href="#" class="nav-logo interactable">Studio.</a>
-            <ul class="nav-menu">
-                <li><a href="#" class="nav-link interactable">Home</a></li>
-                <li><a href="#" class="nav-link interactable">Servizi</a></li>
-                <li><a href="#" class="nav-link interactable">Progetti</a></li>
-                <li><a href="#" class="nav-link active interactable">Chi Sono</a></li>
+            <a href="index.html" class="nav-logo">SB</a>
+            <button class="hamburger" id="hamburger" aria-label="Apri menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="servizi.html" class="nav-link">Servizi</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="contatti.html" class="nav-link">Contatti</a></li>
             </ul>
         </nav>
     </div>
@@ -445,15 +589,14 @@
     <!-- Sezione Bio -->
     <section class="about-section">
         <div class="bio-container">
-            <div class="bio-subtitle">Dietro ai pixel</div>
-            <h1 class="bio-title">Meno fronzoli,<br><span>più sostanza.</span></h1>
+            <h1 class="bio-title">About<br><span>me.</span></h1>
            
             <div class="bio-text">
                 <p>Sono laureata in Graphic & Web Design e progetto interfacce da anni. Il mio approccio? <strong>Fresco, dinamico, dritto all'obiettivo.</strong></p>
                
-                <p>Nel digitale chi si ferma scompare. Per questo non smetto mai di formarmi, esplorare nuovi tool e alzare l'asticella.</p>
+                <p>Nella grafica chi si ferma scompare. Per questo non smetto mai di formarmi, esplorare nuovi tool e alzare l'asticella.</p>
                
-                <p>Niente giri di parole: <strong>lascio che siano i miei progetti a parlare per me.</strong></p>
+                <p><strong>lascio che siano i miei progetti a parlare per me.</strong></p>
             </div>
         </div>
     </section>
@@ -476,6 +619,29 @@
     </section>
 
     <script>
+         // Gestione Menu Mobile Hamburger ed effetti Wow
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+           
+            if(navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+       
         // Cursore personalizzato flessibile
         const cursor = document.getElementById('customCursor');
         const dot = document.getElementById('cursorDot');
