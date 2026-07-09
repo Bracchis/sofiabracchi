@@ -77,6 +77,12 @@ body {
     background-color: rgba(0, 240, 255, 0.05);
 }
 
+     .logo-img {
+    height: 30px; /* Regola l'altezza in base alle tue esigenze */
+    width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
+    display: block;
+}
+    
 /* NAVBAR */
 .navbar-container {
     width: 100%;
@@ -418,7 +424,9 @@ body {
 
     <div class="navbar-container">
         <nav class="navbar">
-            <a href="index.html" class="nav-logo interactable">SB</a>
+              <a href="index.html" class="nav-logo">
+            <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
+        </a>
             <button class="hamburger interactable" id="hamburger" aria-label="Apri menu">
                 <span></span>
                 <span></span>
