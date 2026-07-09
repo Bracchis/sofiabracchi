@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB - Termini e Condizioni</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<style>
+:root {
+    --bg-color: #06040a;
+    --accent-cyan: #00f0ff;
+    --accent-blue: #00f0ff;
+    --accent-pink: #ff65a3;
+    --accent-purple: #8b5cf6;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --glass-bg: rgba(6, 4, 10, 0.7);
+    --glass-blur: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    body { cursor: auto; }
+    .custom-cursor { display: none !important; }
+}
+
+/* Cursore */
+.custom-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+.cursor-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+.cursor-ring {
+    position: absolute;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+}
+.custom-cursor.expand .cursor-ring {
+    width: 60px; height: 60px;
+    border-color: var(--accent-cyan);
+    background-color: rgba(0, 240, 255, 0.05);
+}
+
+/* NAVBAR */
+.navbar-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    z-index: 100;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+}
+
+.nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    z-index: 120;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s ease, font-family 0.3s ease, font-style 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-link.active {
+    color: var(--text-primary);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    z-index: 120;
+    padding: 5px;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Contenuto Legale */
+.legal-section {
+    padding: 150px 4% 120px 4%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1;
+}
+.legal-container {
+    max-width: 800px;
+    width: 100%;
+}
+.legal-title {
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+.legal-title span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--accent-cyan);
+}
+.legal-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 50px;
+}
+.legal-text h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+.legal-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+.legal-text strong {
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Pulsante Torna Indietro */
+.btn-back {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
+    background-color: #ffffff;
+    color: #06040a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 90;
+    cursor: none;
+}
+
+.btn-back svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: var(--accent-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+}
+
+.btn-back:hover svg {
+    transform: translateX(-3px);
+}
+
+/* FOOTER */
+.footer {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: auto;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+}
+
+.footer-credits {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.03em;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover { color: var(--text-primary); }
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    .legal-title { font-size: 2.8rem; }
+   
+    .btn-back {
+        bottom: 25px;
+        right: 25px;
+        width: 48px;
+        height: 48px;
+    }
+   
+    .hamburger {
+        display: flex;
+    }
+   
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(11, 8, 19, 1);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+        z-index: 110;
+        display: flex;
+    }
+
+    .nav-menu::before, .nav-menu::after {
+        content: '';
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .nav-menu::before {
+        background: var(--accent-pink);
+        top: 15%;
+        left: -10%;
+        transform: translate(-50px, -50px);
+    }
+
+    .nav-menu::after {
+        background: var(--accent-blue);
+        bottom: 15%;
+        right: -10%;
+        transform: translate(50px, 50px);
+    }
+
+    .nav-menu.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-menu.active::before { opacity: 0.25; transform: translate(0, 0); }
+    .nav-menu.active::after { opacity: 0.25; transform: translate(0, 0); }
+
+    .nav-menu li {
+        transform: translateY(30px);
+        opacity: 0;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+    }
+
+    .nav-menu.active li {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { transition-delay: 0.18s; }
+    .nav-menu.active li:nth-child(3) { transition-delay: 0.26s; }
+    .nav-menu.active li:nth-child(4) { transition-delay: 0.34s; }
+
+    .nav-link {
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+
+    .nav-link.active {
+        font-size: 2.2rem;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+        width: 100%;
+        left: 0;
+    }
+   
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
+   
+    .footer {
+        flex-direction: column;
+        gap: 15px;
+        padding: 30px 20px;
+        margin-top: 60px;
+        text-align: center;
+    }
+    .footer-links { gap: 20px; }
+}
+</style>
+<body>
+
+    <div class="custom-cursor" id="customCursor">
+        <div class="cursor-dot" id="cursorDot"></div>
+        <div class="cursor-ring" id="cursorRing"></div>
+    </div>
+
+    <div class="navbar-container">
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo interactable">SB</a>
+            <button class="hamburger interactable" id="hamburger" aria-label="Apri menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link interactable">Home</a></li>
+                <li><a href="servizi.html" class="nav-link interactable">Servizi</a></li>
+                <li><a href="chisono.html" class="nav-link interactable">Chi sono</a></li>
+                <li><a href="contatti.html" class="nav-link interactable">Contatti</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="legal-section">
+        <div class="legal-container">
+            <h1 class="legal-title">Termini e<br><span>Condizioni.</span></h1>
+            <p class="legal-date">Ultimo aggiornamento: Luglio 2026</p>
+           
+            <div class="legal-text">
+                <h3>1. Oggetto del Servizio</h3>
+                <p>I presenti Termini e Condizioni disciplinano l'utilizzo di questo sito web e dei servizi professionali forniti da <strong>Sofia Bracchi</strong>. La navigazione e l'invio di richieste tramite i moduli di contatto comportano l'accettazione integrale delle presenti clausole.</p>
+
+                <h3>2. Proprietà Intellettuale</h3>
+                <p>Tutti i contenuti presenti su questo sito, inclusi testi, grafiche, loghi, immagini, layout ed eventuale codice sorgente, sono di proprietà esclusiva di <strong>Sofia Bracchi</strong> o dei rispettivi licenziatari e sono protetti dalle normative sul diritto d'autore e sulla proprietà industriale.</p>
+
+                <h3>3. Limitazione di Responsabilità</h3>
+                <p>Il Titolare si impegna a mantenere il sito costantemente aggiornato e privo di errori tecnici. Tuttavia, non viene assunta alcuna responsabilità per eventuali danni diretti o indiretti derivanti dall'indisponibilità temporanea della piattaforma o dall'uso improprio delle informazioni contenute nelle pagine.</p>
+
+                <h3>4. Modifiche ai Termini</h3>
+                <p>Il Titolare si riserva il diritto di modificare unilateralmente i presenti Termini e Condizioni in qualsiasi momento per adeguarli a nuove disposizioni di legge o variazioni dei servizi offerti. Le modifiche saranno efficaci a partire dalla data di pubblicazione indicata in intestazione.</p>
+
+                <h3>5. Legge Applicabile e Foro Competente</h3>
+                <p>I presenti termini sono regolati dalla legge italiana. Per qualsiasi controversia inerente all'interpretazione o all'esecuzione delle presenti condizioni, sarà competente in via esclusiva il Foro stabilito dalle normative vigenti a tutela del professionista e del consumatore.</p>
+            </div>
+        </div>
+    </main>
+
+    <a href="javascript:history.back()" class="btn-back interactable" aria-label="Torna indietro">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+    </a>
+   
+    <footer class="footer">
+        <div class="footer-credits">
+            &copy; 2026 Studio. Tutti i diritti riservati.
+        </div>
+        <ul class="footer-links">
+            <li><a href="privacy.html" class="footer-link interactable">Privacy Policy</a></li>
+            <li><a href="termini.html" class="footer-link interactable">Termini e Condizioni</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        // Gestione Menu Mobile Hamburger
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+           
+            if(navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+       
+        // Cursore Animation
+        const cursor = document.getElementById('customCursor');
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let dotX = mouseX, dotY = mouseY, ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            dotX += (mouseX - dotX);
+            dotY += (mouseY - dotY);
+            ringX += (mouseX - ringX) * 0.16;
+            ringY += (mouseY - ringY) * 0.16;
+           
+            dot.style.left = `${dotX}px`;
+            dot.style.top = `${dotY}px`;
+            ring.style.left = `${ringX}px`;
+            ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('.interactable').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+        });
+    </script>
+</body>
+</html>
