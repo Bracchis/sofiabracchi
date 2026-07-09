@@ -275,7 +275,7 @@
 
        .bio-text p strong {
     font-weight: 500;
-    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -428,6 +428,43 @@
             background: rgba(255, 255, 255, 0.05);
             transform: translateY(-3px);
         }
+       
+         .footer {
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 120px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .footer-credits {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover { color: var(--text-primary); }
+       
 
         /* ==========================================================================
            RESPONSIVE
@@ -548,6 +585,15 @@
             .glow-1 { width: 300px; height: 300px; }
             .glow-2 { width: 350px; height: 350px; }
             .glow-3 { width: 250px; height: 250px; }
+           
+            .footer {
+                flex-direction: column;
+                gap: 15px;
+                padding: 30px 0;
+                margin-top: 0px;
+                text-align: center;
+            }
+            .footer-links { gap: 20px; }
         }
 
         @keyframes roamingFocusMobile {
@@ -617,6 +663,16 @@
             </div>
         </div>
     </section>
+   
+     <footer class="footer">
+        <div class="footer-credits">
+            &copy; 2026 Studio. Tutti i diritti riservati.
+        </div>
+        <ul class="footer-links">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Termini e Condizioni</a></li>
+        </ul>
+    </footer>
 
     <script>
          // Gestione Menu Mobile Hamburger ed effetti Wow
