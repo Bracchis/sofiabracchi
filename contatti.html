@@ -12,12 +12,12 @@
     <style>
         :root {
             --bg-color: #06040a;
-             --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
+            --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
             --accent-neutral-glow: rgba(163, 150, 137, 0.25);
             --accent-pink: #ff65a3;
-            --accent-cyan: #00f0ff;
-              --accent-pink-glow: rgba(255, 101, 163, 0.25);
+             --accent-pink-glow: rgba(255, 101, 163, 0.25);
             --accent-blue: #4d61ff;
+            --accent-cyan: #00f0ff;
             --accent-sad: #4a3b6e;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
@@ -193,7 +193,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden; /* FIX: Evita la comparsa della barra di scorrimento orizzontale su mobile */
+            overflow: hidden;
         }
 
         /* Sfondo con Glow di atmosfera dinamico */
@@ -421,7 +421,7 @@
             color: #ffffff;
         }
        
-         .footer {
+        .footer {
             width: 100%;
             max-width: 1200px;
             margin-top: 120px;
@@ -559,14 +559,44 @@
             .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
-        }
-       
-       
+           
             .immersive-card { padding: 40px 24px; }
-            .form-footer { flex-direction: column; gap: 30px; }
-            .submit-btn { width: 100%; justify-content: center; }
             .contact-title { font-size: 2.2rem; }
            
+            /* Modifiche per affiancare Nome/Email alla Faccina */
+            .minimal-form {
+                position: relative;
+            }
+
+            .minimal-form .form-group:nth-child(1),
+            .minimal-form .form-group:nth-child(2) {
+                width: calc(100% - 130px);
+            }
+
+            .character-container {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 110px;
+                margin-top: 0;
+            }
+
+            .character-status {
+                font-size: 0.8rem;
+                white-space: normal;
+                line-height: 1.2;
+            }
+
+            /* Reset Footer per mobile */
+            .form-footer {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+            }
+             
             .footer {
                 flex-direction: column;
                 gap: 15px;
@@ -585,9 +615,9 @@
         <div class="cursor-ring" id="cursorRing"></div>
     </div>
 
-    <div class="navbar-container">
+   <div class="navbar-container">
         <nav class="navbar">
-            <a href="index.html" class="nav-logo">SB</a>
+            <a href="#" class="nav-logo">SB</a>
             <button class="hamburger" id="hamburger" aria-label="Apri menu">
                 <span></span>
                 <span></span>
@@ -595,8 +625,8 @@
             </button>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="#" class="nav-link active">Servizi</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="servizi.html" class="nav-link">Servizi</a></li>
+                <li><a href="#" class="nav-link active">About</a></li>
                 <li><a href="contatti.html" class="nav-link">Contatti</a></li>
             </ul>
         </nav>
@@ -608,17 +638,17 @@
         <div class="immersive-card">
             <h2 class="contact-title">Mettiamoci in <span class="italic-font">contatto</span>.</h2>
            
-            <form class="minimal-form" id="contactForm">
+            <form class="minimal-form" id="contactForm" method="POST">
                 <div class="form-group">
-                    <input type="text" id="formName" class="interactable data-input" required placeholder=" ">
+                    <input type="text" id="formName" name="name" class="interactable data-input" required placeholder=" ">
                     <label for="formName">IL TUO NOME</label>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="formEmail" class="interactable data-input" required placeholder=" ">
+                    <input type="email" id="formEmail" name="email" class="interactable data-input" required placeholder=" ">
                     <label for="formEmail">LA TUA EMAIL</label>
                 </div>
                 <div class="form-group">
-                    <textarea id="formMessage" class="interactable data-input" required placeholder=" " rows="3"></textarea>
+                    <textarea id="formMessage" name="message" class="interactable data-input" required placeholder=" " rows="3"></textarea>
                     <label for="formMessage">IL TUO PROGETTO</label>
                 </div>
                
@@ -651,7 +681,7 @@
                                 <circle cx="170" cy="130" r="4" fill="var(--accent-pink)"/>
                             </g>
                         </svg>
-                        <div class="character-status" id="characterStatus">Ti sto aspettando... ✨</div>
+                        <div class="character-status" id="characterStatus">Ti sto aspettando...</div>
                     </div>
                 </div>
             </form>
@@ -674,13 +704,13 @@
             &copy; 2026 Studio. Tutti i diritti riservati.
         </div>
         <ul class="footer-links">
-            <li><a href="#" class="footer-link">Privacy Policy</a></li>
-            <li><a href="#" class="footer-link">Termini e Condizioni</a></li>
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="termini.html" class="footer-link">Termini e Condizioni</a></li>
         </ul>
     </footer>
 
     <script>
-          // Gestione Menu Mobile Hamburger ed effetti Wow
+         // Gestione Menu Mobile Hamburger ed effetti Wow
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
 
@@ -743,6 +773,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const inputs = document.querySelectorAll('.data-input');
         const contactForm = document.getElementById('contactForm');
+        const btnText = submitBtn.querySelector("span");
 
         let isWriting = false;
         let isCelebrating = false;
@@ -758,7 +789,7 @@
             mouth.setAttribute('d', 'M 95 135 L 105 135');
             whiteLeft.setAttribute('ry', '24'); whiteRight.setAttribute('ry', '24');
             stars.style.opacity = '0';
-            statusText.innerText = "Oh, che bel progetto... ✍️";
+            statusText.innerText = "Oh, che bello conoscerti!";
             statusText.style.color = "var(--accent-cyan)";
         }
 
@@ -774,36 +805,72 @@
         });
 
         // FUNZIONE FESTEGGIAMENTO AL SUBMIT
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Blocca il reload nativo per l'esempio
-            triggerCelebration();
+       contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault(); // Blocca il ricaricamento della pagina
+   
+    // Stato visivo di caricamento
+    btnText.textContent = "INVIO IN CORSO...";
+    submitBtn.disabled = true;
+
+    const formData = new FormData(contactForm);
+
+    try {
+        // Sostituisci "TUO_ENDPOINT_QUI" con il link che ti dà Formspree
+        const response = await fetch("https://formspree.io/f/xlgyyazv", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
         });
 
-        function triggerCelebration() {
-            isCelebrating = true;
-           
-            // Animazione Visiva Euforica
-            charBody.style.fill = "var(--accent-pink)";
-            pupilLeft.setAttribute('fill', '#06040a');
-            pupilRight.setAttribute('fill', '#06040a');
-            pupilLeft.setAttribute('cx', '70'); pupilLeft.setAttribute('cy', '95');
-            pupilRight.setAttribute('cx', '130'); pupilRight.setAttribute('cy', '95');
-           
-            ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.3) 0%, transparent 70%)`;
-            mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130'); // Sorrisone aperto
-            mouth.setAttribute('stroke', '#ffffff');
-            whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
-            stars.style.opacity = '1';
-           
-            statusText.innerText = "Grazie! Inviato! 🎉";
-            statusText.style.color = "var(--accent-pink)";
-
-            // Resta in stato festa per 4 secondi, poi si resetta
-            setTimeout(() => {
-                isCelebrating = false;
-                stars.style.opacity = '0';
-            }, 4000);
+        if (response.ok) {
+            triggerCelebration(); // Fa partire la tua animazione festosa
+            btnText.textContent = "MESSAGGIO INVIATO!";
+            contactForm.reset();  // Svuota i campi
+        } else {
+            throw new Error("Errore");
         }
+    } catch (error) {
+        statusText.innerText = "Ops! Qualcosa è andato storto.";
+        statusText.style.color = "var(--accent-sad)";
+        btnText.textContent = "ERRORE. RIPROVA";
+        submitBtn.disabled = false;
+    }
+});
+
+        function triggerCelebration() {
+    isCelebrating = true;
+   
+    // Animazione Visiva Euforica
+    charBody.style.fill = "var(--accent-pink)";
+    pupilLeft.setAttribute('fill', '#06040a');
+    pupilRight.setAttribute('fill', '#06040a');
+    pupilLeft.setAttribute('cx', '70'); pupilLeft.setAttribute('cy', '95');
+    pupilRight.setAttribute('cx', '130'); pupilRight.setAttribute('cy', '95');
+   
+    ambientGlow.style.background = `radial-gradient(circle, rgba(255, 101, 163, 0.3) 0%, transparent 70%)`;
+    mouth.setAttribute('d', 'M 85 130 Q 100 160 115 130'); // Sorrisone aperto
+    mouth.setAttribute('stroke', '#ffffff');
+    whiteLeft.setAttribute('ry', '22'); whiteRight.setAttribute('ry', '22');
+    stars.style.opacity = '1';
+   
+    statusText.innerText = "Grazie! Inviato!";
+    statusText.style.color = "var(--accent-pink)";
+   
+    // Cambiamo subito la scritta sul bottone prima che parta il timer
+    btnText.textContent = "MESSAGGIO INVIATO!";
+
+    // Resta in stato festa per 4 secondi, poi si resetta TUTTO insieme
+    setTimeout(() => {
+        isCelebrating = false;
+        stars.style.opacity = '0';
+       
+        // QUESTE RIGHE DEVONO STARE QUI DENTRO:
+        btnText.textContent = "INVIA IL MESSAGGIO";
+        submitBtn.disabled = false;
+    }, 4000);
+}
 
         // SE SEI SU DESKTOP: Tracciamento Mouse standard
         document.addEventListener('mousemove', (e) => {
@@ -852,7 +919,7 @@
                 mouth.setAttribute('stroke', 'rgba(255,255,255,0.4)');
                 whiteLeft.setAttribute('ry', '12'); whiteRight.setAttribute('ry', '12');
                 pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
-                statusText.innerText = "Dove stai andando? :(";
+                statusText.innerText = "Dove stai andando?";
                 statusText.style.color = "var(--text-secondary)";
             }
             else {
@@ -895,7 +962,7 @@
                     pupilLeft.setAttribute('cx', '70'); pupilLeft.setAttribute('cy', '95');
                     pupilRight.setAttribute('cx', '130'); pupilRight.setAttribute('cy', '95');
                     pupilLeft.setAttribute('fill', '#06040a'); pupilRight.setAttribute('fill', '#06040a');
-                    statusText.innerText = "Ti sto aspettando... ✨";
+                    statusText.innerText = "Ti sto aspettando...";
                     statusText.style.color = "rgba(255,255,255,0.3)";
                 }
                 else if (randomState === 'guarda_giro') {
@@ -903,7 +970,7 @@
                     const lookRight = Math.random() > 0.5;
                     pupilLeft.setAttribute('cx', lookRight ? '76' : '64'); pupilLeft.setAttribute('cy', '95');
                     pupilRight.setAttribute('cx', lookRight ? '136' : '124'); pupilRight.setAttribute('cy', '95');
-                    statusText.innerText = "Dai un'occhiata in giro? 👀";
+                    statusText.innerText = "Dai un'occhiata in giro?";
                     statusText.style.color = "rgba(255,255,255,0.4)";
                 }
                 else if (randomState === 'pensieroso') {
@@ -912,7 +979,7 @@
                     mouth.setAttribute('d', 'M 90 138 Q 100 142 110 138'); // Sorrisetto timido piatto
                     pupilLeft.setAttribute('cx', '74'); pupilLeft.setAttribute('cy', '88'); // Guarda in alto a destra
                     pupilRight.setAttribute('cx', '134'); pupilRight.setAttribute('cy', '88');
-                    statusText.innerText = "Cosa racconterai? 🤔";
+                    statusText.innerText = "Cosa racconterai?";
                     statusText.style.color = "var(--text-secondary)";
                 }
             }, 3000); // Aggiorna lo stato autonomo ogni 3 secondi
