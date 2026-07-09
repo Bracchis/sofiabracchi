@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB - Chi Sono</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #06040a;
+            --accent-pink: #ff65a3;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #8b5cf6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            body { cursor: auto; }
+            .custom-cursor { display: none !important; }
+        }
+
+        /* ==========================================================================
+           PUNTATORE MOUSE
+           ========================================================================== */
+        .custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            width: 6px; height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .cursor-ring {
+            position: absolute;
+            width: 32px; height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .custom-cursor.expand .cursor-ring {
+            width: 60px; height: 60px;
+            border-color: var(--accent-cyan);
+            background-color: rgba(0, 240, 255, 0.05);
+        }
+
+        /* ==========================================================================
+           NAVBAR
+           ========================================================================== */
+        .navbar-container {
+            width: 100%;
+            position: fixed;
+            top: 0; left: 0;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(to bottom, rgba(6,4,10,0.9) 0%, rgba(6,4,10,0) 100%);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-transform: none;
+            letter-spacing: 0.02em;
+        }
+
+        /* ==========================================================================
+           SFONDO PARALLAX & AUTO-FOCUS EFFETTO
+           ========================================================================== */
+        .background-wrapper {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+        }
+
+        .bg-layer-blur {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('assets/img/sofia_bracchi.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: grayscale(100%) blur(12px) brightness(0.4);
+        }
+
+        .bg-layer-sharp {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            filter: grayscale(100%) brightness(0.6);
+           
+            -webkit-mask-image: radial-gradient(circle 350px, black 10%, rgba(0,0,0,0) 60%);
+            mask-image: radial-gradient(circle 350px, black 10%, rgba(0,0,0,0) 60%);
+            -webkit-mask-size: 200% 200%;
+            mask-size: 200% 200%;
+           
+            animation: roamingFocus 25s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+
+        @keyframes roamingFocus {
+            0% { -webkit-mask-position: 0% 0%; }
+            25% { -webkit-mask-position: 100% 20%; }
+            50% { -webkit-mask-position: 80% 100%; }
+            75% { -webkit-mask-position: 20% 80%; }
+            100% { -webkit-mask-position: 0% 0%; }
+        }
+
+        /* ==========================================================================
+           CONTENUTO BIO
+           ========================================================================== */
+        .about-section {
+            position: relative;
+            width: 100%;
+            padding: 240px 4% 160px 4%;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .bio-container {
+            max-width: 800px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .bio-subtitle, .bio-title, .bio-text {
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0,0,0,0.7);
+        }
+
+        .bio-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .bio-title {
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 50px;
+            letter-spacing: -0.02em;
+        }
+
+        .bio-title span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .bio-text {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .bio-text p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        .bio-text p strong {
+            font-weight: 500;
+            color: var(--accent-pink);
+        }
+
+        /* ==========================================================================
+           NUOVA SEZIONE GENERATIVA (Sostituzione Dischi con Mesh di Luci Fluide)
+           ========================================================================== */
+        .cta-3d-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 3;
+        }
+
+        /* Canvas astratto per le luci fluide automatiche */
+        .ambient-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fluid-glow {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            filter: blur(140px);
+            opacity: 0.45;
+            will-change: transform;
+        }
+
+        /* Configurazione e coreografie automatiche dei vettori di luce */
+        .glow-1 {
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, var(--accent-purple) 0%, rgba(0,0,0,0) 70%);
+            top: -10%; left: 15%;
+            animation: driftFirst 22s infinite alternate ease-in-out;
+        }
+
+        .glow-2 {
+            width: 650px; height: 650px;
+            background: radial-gradient(circle, var(--accent-cyan) 0%, rgba(0,0,0,0) 70%);
+            bottom: -15%; right: 10%;
+            animation: driftSecond 28s infinite alternate ease-in-out;
+        }
+
+        .glow-3 {
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, var(--accent-pink) 0%, rgba(0,0,0,0) 70%);
+            top: 30%; right: -5%;
+            animation: driftThird 18s infinite alternate ease-in-out;
+        }
+
+        /* Animazioni fluide e organiche indipendenti dal mouse */
+        @keyframes driftFirst {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(120px, 80px) scale(1.15); }
+            100% { transform: translate(-40px, 160px) scale(0.9); }
+        }
+
+        @keyframes driftSecond {
+            0% { transform: translate(0, 0) scale(1.1); }
+            50% { transform: translate(-150px, -100px) scale(0.85); }
+            100% { transform: translate(60px, -40px) scale(1.05); }
+        }
+
+        @keyframes driftThird {
+            0% { transform: translate(0, 0) scale(0.9); opacity: 0.3; }
+            50% { transform: translate(-100px, 120px) scale(1.2); opacity: 0.5; }
+            100% { transform: translate(-20px, -60px) scale(1); opacity: 0.3; }
+        }
+
+        /* Layout Messaggio Centrale CTA */
+        .cta-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+
+        .cta-heading {
+            font-size: 3rem;
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: 40px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+        }
+
+        .cta-heading span {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--accent-cyan);
+        }
+
+        .cta-button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #06040a;
+            padding: 18px 36px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+            cursor: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 18px 36px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-3px);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .about-section { padding-top: 150px; padding-bottom: 100px; }
+            .bio-title { font-size: 2.8rem; }
+            .bg-layer-sharp { animation: roamingFocusMobile 20s infinite alternate ease-in-out; }
+            .navbar { padding: 0 20px; }
+           
+            .cta-heading { font-size: 2.2rem; }
+            .cta-button-group { flex-direction: column; gap: 16px; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+           
+            .fluid-glow { filter: blur(90px); opacity: 0.35; }
+            .glow-1 { width: 300px; height: 300px; }
+            .glow-2 { width: 350px; height: 350px; }
+            .glow-3 { width: 250px; height: 250px; }
+        }
+
+        @keyframes roamingFocusMobile {
+            0% { -webkit-mask-position: 20% 20%; }
+            100% { -webkit-mask-position: 80% 80%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="customCursor">
+        <div class="cursor-dot" id="cursorDot"></div>
+        <div class="cursor-ring" id="cursorRing"></div>
+    </div>
+
+    <!-- Background Layers (Bio) -->
+    <div class="background-wrapper">
+        <div class="bg-layer-blur"></div>
+        <div class="bg-layer-sharp"></div>
+    </div>
+
+    <div class="navbar-container">
+        <nav class="navbar">
+            <a href="#" class="nav-logo interactable">Studio.</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link interactable">Home</a></li>
+                <li><a href="#" class="nav-link interactable">Servizi</a></li>
+                <li><a href="#" class="nav-link interactable">Progetti</a></li>
+                <li><a href="#" class="nav-link active interactable">Chi Sono</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sezione Bio -->
+    <section class="about-section">
+        <div class="bio-container">
+            <div class="bio-subtitle">Dietro ai pixel</div>
+            <h1 class="bio-title">Meno fronzoli,<br><span>più sostanza.</span></h1>
+           
+            <div class="bio-text">
+                <p>Sono laureata in Graphic & Web Design e progetto interfacce da anni. Il mio approccio? <strong>Fresco, dinamico, dritto all'obiettivo.</strong></p>
+               
+                <p>Nel digitale chi si ferma scompare. Per questo non smetto mai di formarmi, esplorare nuovi tool e alzare l'asticella.</p>
+               
+                <p>Niente giri di parole: <strong>lascio che siano i miei progetti a parlare per me.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione CTA con Sfondo d'Ambiente Automatico -->
+    <section class="cta-3d-section" id="parallaxCtaSection">
+        <div class="ambient-canvas">
+            <div class="fluid-glow glow-1"></div>
+            <div class="fluid-glow glow-2"></div>
+            <div class="fluid-glow glow-3"></div>
+        </div>
+
+        <div class="cta-content">
+            <h2 class="cta-heading">Hai in mente una visione?<br>Diamo <span>forma alle tue idee</span>.</h2>
+            <div class="cta-button-group">
+                <a href="#" class="btn-primary interactable">Scopri i Servizi</a>
+                <a href="#" class="btn-secondary interactable">Contattami</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Cursore personalizzato flessibile
+        const cursor = document.getElementById('customCursor');
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let dotX = mouseX, dotY = mouseY, ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            dotX += (mouseX - dotX); dotY += (mouseY - dotY);
+            ringX += (mouseX - ringX) * 0.16; ringY += (mouseY - ringY) * 0.16;
+            dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
+            ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('.interactable').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+        });
+    </script>
+</body>
+</html>
