@@ -62,6 +62,11 @@
             pointer-events: none;
         }
 
+         .logo-img {
+    height: 30px; /* Regola l'altezza in base alle tue esigenze */
+    width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
+    display: block;
+}
         .navbar-container {
             width: 100%;
             position: fixed;
@@ -769,7 +774,9 @@
 
     <div class="navbar-container">
         <nav class="navbar">
-            <a href="index.html" class="nav-logo">SB</a>
+           <a href="index.html" class="nav-logo">
+            <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
+        </a>
             <button class="hamburger" id="hamburger" aria-label="Apri menu">
                 <span></span>
                 <span></span>
