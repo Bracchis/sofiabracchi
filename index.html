@@ -19,6 +19,7 @@
             --accent-neutral-glow: rgba(163, 150, 137, 0.25);
             --accent-pink: #ff65a3;
             --accent-pink-glow: rgba(255, 101, 163, 0.25);
+            --accent-cyan: #00f0ff;
             --accent-blue: #4d61ff;
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
@@ -659,19 +660,19 @@
         .scroll-trigger[data-card="2"] { top: 110vh; }
         .scroll-trigger[data-card="3"] { top: 210vh; }
         
-        
         .footer {
-            width: 100%;
-            max-width: 1200px;
-            margin-top: 120px;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            z-index: 10;
-        }
+    width: 100%;
+    max-width: 1200px;
+    margin: 120px auto 0 auto; /* Centra il footer orizzontalmente tramite i margini auto */
+    padding: 40px 20px; /* Aggiunti 20px di padding laterale per non far toccare i bordi */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+    box-sizing: border-box; /* Assicura il calcolo perfetto di padding e larghezza */
+}
 
         .footer-credits {
             font-size: 0.75rem;
@@ -1044,15 +1045,15 @@
             <a href="about.html" class="works-btn-cta interactable">Scopri di più</a>
         </div>
    
-    <footer class="footer">
-        <div class="footer-credits">
-            &copy; 2026 SB. Tutti i diritti riservati.
-        </div>
-        <ul class="footer-links">
-            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-            <li><a href="termini.html" class="footer-link">Termini e Condizioni</a></li>
-        </ul>
-    </footer>
+   <footer class="footer">
+    <div class="footer-credits">
+        <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
+    </div>
+    <ul class="footer-links">
+        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+        <li><a href="contatti.html" class="footer-link">Contatti</a></li>
+    </ul>
+</footer>
     
     <script>
         // Gestione Menu Mobile Hamburger ed effetti Wow
