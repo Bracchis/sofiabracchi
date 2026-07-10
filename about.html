@@ -452,15 +452,20 @@
         }
 
         .footer {
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
+    width: 100%;
+    max-width: 1200px;
+    margin: 120px auto 0 auto;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column; /* Dispone gli elementi in verticale (su due righe) */
+    justify-content: center; /* Centra il contenuto verticalmente */
+    align-items: center;     /* Centra il contenuto orizzontalmente */
+    gap: 15px;               /* Spazio tra la prima e la seconda riga */
+    z-index: 10;
+    box-sizing: border-box;
+    text-align: center;      /* Forza la centratura del testo */
+}
 
         .footer-credits {
             font-size: 0.75rem;
@@ -711,17 +716,15 @@
         </div>
     </section>
    
-     <div class="footer-container">
-        <footer class="footer">
-            <div class="footer-credits">
-                &copy; 2026 SB. Tutti i diritti riservati.
-            </div>
-            <ul class="footer-links">
-                <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-                <li><a href="termini.html" class="footer-link">Termini e Condizioni</a></li>
-            </ul>
-        </footer>
+     <footer class="footer">
+    <div class="footer-credits">
+        <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
     </div>
+    <ul class="footer-links">
+        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+        <li><a href="contatti.html" class="footer-link">Contatti</a></li>
+    </ul>
+</footer>
 
     <script>
          // Gestione Menu Mobile Hamburger ed effetti Wow
