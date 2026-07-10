@@ -684,20 +684,21 @@
             border-color: var(--accent-pink);
         }
 
-        .footer {
+       .footer {
     width: 100%;
     max-width: 1200px;
-    margin: 120px auto 0 auto; /* Centra il footer orizzontalmente tramite i margini auto */
-    padding: 40px 20px; /* Aggiunti 20px di padding laterale per non far toccare i bordi */
+    margin: 120px auto 0 auto;
+    padding: 40px 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column; /* Dispone gli elementi in verticale (su due righe) */
+    justify-content: center; /* Centra il contenuto verticalmente */
+    align-items: center;     /* Centra il contenuto orizzontalmente */
+    gap: 15px;               /* Spazio tra la prima e la seconda riga */
     z-index: 10;
-    box-sizing: border-box; /* Assicura il calcolo perfetto di padding e larghezza */
+    box-sizing: border-box;
+    text-align: center;      /* Forza la centratura del testo */
 }
-
         .footer-credits {
             font-size: 0.75rem;
             color: var(--text-secondary);
