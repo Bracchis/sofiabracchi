@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
- <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
     <meta name="google-site-verification" content="HPdhKbfGb9sdmR96fUWFfrA-7XAvPc3s9YsHcGoEkfI" />
     <style>
         :root {
@@ -95,11 +95,11 @@
             background-color: rgba(255, 101, 163, 0.05);
         }
 
-         .logo-img {
-    height: 30px; /* Regola l'altezza in base alle tue esigenze */
-    width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
-    display: block;
-}
+        .logo-img {
+            height: 30px; /* Regola l'altezza in base alle tue esigenze */
+            width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
+            display: block;
+        }
 
         /* ==========================================================================
            NAVBAR (Minimal Glass)
@@ -262,10 +262,6 @@
             font-style: italic;
             font-weight: 400;
             color: #ffffff;
-            /*letter-spacing: 0em;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;*/
         }
         
         .hero-subtitle-title {
@@ -276,7 +272,6 @@
             font-weight: 300;
             margin-bottom: 40px;
             pointer-events: none;
-            /* Riga aggiunta per l'ombra sfocata */
             text-shadow: 2px 2px 15px rgba(0, 0, 0, 1);
         }
 
@@ -315,14 +310,14 @@
         }
 
         /* ==========================================================================
-           SEZIONE GALLERY AGGIORNATA (CENTRATA E RESPONSIVE)
+           SEZIONE GALLERY (CENTRATA, RESPONSIVE E CON EFFETTO ARCO)
            ========================================================================== */
         .works-section {
             width: 100%;
             max-width: 100vw;
             padding: 120px 0;
             background-color: var(--bg-color);
-            overflow: visible; /* Modificato da hidden a visible per evitare il taglio delle ombre */
+            overflow: visible; /* Previene il taglio del bagliore dell'hover */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -332,7 +327,7 @@
             text-align: center;
             max-width: 700px;
             padding: 0 20px;
-            margin-bottom: 80px;
+            margin-bottom: 100px; /* Aumentato per dare spazio all'effetto arco */
         }
 
         .works-title-center {
@@ -362,19 +357,19 @@
         .gallery-perspective-container {
             width: 100%;
             max-width: 100%;
-            padding: 60px 40px; /* Aumentato padding verticale per dare spazio all'effetto hover */
+            padding: 80px 40px; /* Aumentato per evitare clipping dell'ombra in hover */
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1400px;
-            overflow: visible; /* Previene il taglio del bagliore sfumato laterale e verticale */
+            overflow: visible; 
         }
 
         .gallery-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             width: 100%;
             max-width: 1200px;
             transform-style: preserve-3d;
@@ -384,12 +379,11 @@
         /* Card Individuali */
         .work-card {
             position: relative;
-            flex: 1;
-            width: 100%;
-            min-width: 0; 
+            /* Forza una larghezza fissa ma flessibile per mantenere l'arco intatto */
+            flex: 0 1 240px;
             height: 420px;
             border-radius: 24px;
-            overflow: hidden; /* Mantiene l'immagine e l'overlay dentro i bordi arrotondati della card */
+            overflow: hidden; 
             background: #151122;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, box-shadow 0.6s ease, border-color 0.6s ease;
@@ -413,6 +407,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
+            pointer-events: none; /* Impedisce micro-sfarfallii del mouse durante l'hover */
         }
 
         .work-tag {
@@ -437,26 +432,27 @@
             line-height: 1.3;
         }
 
-        /* Struttura ad Arco 3D - Desktop (Attiva e Allineata) */
-        .card-p1 { transform: translateY(40px) rotateY(22deg) scale(0.9); filter: brightness(0.45); }
-        .card-p2 { transform: translateY(15px) rotateY(12deg) scale(0.96); filter: brightness(0.7); }
+        /* Struttura ad Arco 3D - Desktop */
+        .card-p1 { transform: translateY(40px) rotateY(20deg) scale(0.9); filter: brightness(0.5); }
+        .card-p2 { transform: translateY(15px) rotateY(10deg) scale(0.96); filter: brightness(0.75); }
         .card-center { transform: translateY(-20px) rotateY(0deg) scale(1.08); z-index: 5; filter: brightness(1); border-color: rgba(255, 255, 255, 0.15); }
-        .card-p4 { transform: translateY(15px) rotateY(-12deg) scale(0.96); filter: brightness(0.7); }
-        .card-p5 { transform: translateY(40px) rotateY(-22deg) scale(0.9); filter: brightness(0.45); }
+        .card-p4 { transform: translateY(15px) rotateY(-10deg) scale(0.96); filter: brightness(0.75); }
+        .card-p5 { transform: translateY(40px) rotateY(-20deg) scale(0.9); filter: brightness(0.5); }
 
-       /* Hover delle card - Ora con bagliore bianco ultra-morbido */
+        /* Hover delle card - Sollevamento ridotto (da -50px a -30px), scala più morbida (da 1.12 a 1.05) e bagliore bianco ultra-delicato */
         .work-card:hover {
-            transform: translateY(-45px) rotateY(0deg) scale(1.12) !important;
+            transform: translateY(-5px) rotateY(0deg) scale(1) !important;
             filter: brightness(1) !important;
-            z-index: 10;
-            box-shadow: 0 30px 60px rgba(255, 255, 255, 0.18); /* Sfumatura bianca d'atmosfera */
-            border-color: rgba(255, 255, 255, 0.35); /* Bordo di messa a fuoco bianco soft */
+            z-index: 12;
+            /* Bagliore bianco molto più soffuso e meno accecante */
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.08), 0 0 25px rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.25); 
         }
        
+        /* Zoom dell'immagine interna molto più discreto (da 1.06 a 1.02) */
         .work-card:hover img {
-            transform: scale(1.04);
+            transform: scale(1.2);
         }
-
         .btn-primary {
             background: #ffffff;
             color: #06040a;
@@ -505,7 +501,8 @@
             background-color: #ffffff;
             color: #0b0813;
             border-color: #ffffff;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
         }
 
         /* ==========================================================================
@@ -546,10 +543,7 @@
         .reviews-title span.italic-font {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: #fffff;
-         /*   background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;*/
+            color: #ffffff;
         }
 
         .cards-wrapper {
@@ -661,18 +655,18 @@
         .scroll-trigger[data-card="3"] { top: 210vh; }
         
         .footer {
-    width: 100%;
-    max-width: 1200px;
-    margin: 120px auto 0 auto; /* Centra il footer orizzontalmente tramite i margini auto */
-    padding: 40px 20px; /* Aggiunti 20px di padding laterale per non far toccare i bordi */
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    z-index: 10;
-    box-sizing: border-box; /* Assicura il calcolo perfetto di padding e larghezza */
-}
+            width: 100%;
+            max-width: 1200px;
+            margin: 120px auto 0 auto; /* Centra il footer orizzontalmente tramite i margini auto */
+            padding: 40px 20px; /* Aggiunti 20px di padding laterale per non far toccare i bordi */
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            box-sizing: border-box; /* Assicura il calcolo perfetto di padding e larghezza */
+        }
 
         .footer-credits {
             font-size: 0.75rem;
@@ -702,7 +696,7 @@
            ========================================================================== */
         @media (max-width: 1100px) {
             .gallery-wrapper { gap: 16px; padding: 0 20px; }
-            .work-card { height: 360px; }
+            .work-card { flex: 0 1 180px; height: 360px; }
             .card-p1 { transform: translateY(30px) rotateY(15deg) scale(0.9); }
             .card-p2 { transform: translateY(10px) rotateY(8deg) scale(0.96); }
             .card-center { transform: translateY(-15px) rotateY(0deg) scale(1.05); }
@@ -811,7 +805,7 @@
             .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
-        }
+            
             .hero-title { font-size: 2.8rem; }
             .fluid-canvas-container { width: 380px; height: 380px; }
             .ambient-backlight { width: 340px; height: 340px; }
@@ -886,9 +880,8 @@
     <div class="navbar-container">
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
-            <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
-        </a>
-            <!-- <a href="#" class="nav-logo">SB</a> -->
+                <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
+            </a>
             <button class="hamburger" id="hamburger" aria-label="Apri menu">
                 <span></span>
                 <span></span>
@@ -920,9 +913,6 @@
         </div>
     </section>
 
-    <!-- ==========================================================================
-       SEZIONE GALLERY: I NOSTRI PROGETTI (INTEGRATA PRIMA DELLE RECENSIONI)
-       ========================================================================== -->
     <section class="works-section">
         <div class="works-header-center">
             <h2 class="works-title-center">I miei <span class="italic-font">progetti.</span></h2>
@@ -931,7 +921,6 @@
 
         <div class="gallery-perspective-container">
             <div class="gallery-wrapper">
-                <!-- Card 1 -->
                 <div class="work-card card-p1 interactable">
                     <img src="assets/img/pamela_perrotta.png" alt="Website - Pamela Perrotta">
                     <div class="work-card-overlay">
@@ -939,7 +928,6 @@
                         <h3 class="work-card-title">PAMELA PERROTTA</h3>
                     </div>
                 </div>
-                <!-- Card 2 -->
                 <div class="work-card card-p2 interactable">
                     <img src="assets/img/capramara.jpeg" alt="Branding - Capramara">
                     <div class="work-card-overlay">
@@ -947,7 +935,6 @@
                         <h3 class="work-card-title">CAPRAMARA</h3>
                     </div>
                 </div>
-                <!-- Card 3 (Centro - Focus) -->
                 <div class="work-card card-center interactable">
                     <img src="assets/img/scipioni_logo.png" alt="Studio Odontoiatrico Scipioni">
                     <div class="work-card-overlay">
@@ -955,7 +942,6 @@
                         <h3 class="work-card-title">STUDIO ODONTOIATRICO SCIPIONI</h3>
                     </div>
                 </div>
-                <!-- Card 4 -->
                 <div class="work-card card-p4 interactable">
                     <img src="assets/img/blugym.png" alt="Blu Gym">
                     <div class="work-card-overlay">
@@ -963,7 +949,6 @@
                         <h3 class="work-card-title">BLU GYM</h3>
                     </div>
                 </div>
-                <!-- Card 5 -->
                 <div class="work-card card-p5 interactable">
                     <img src="assets/img/ossidiana.png" alt="Ossidiana">
                     <div class="work-card-overlay">
@@ -979,12 +964,10 @@
         </div>
     </section>
 
-    <!-- Sezione Recensioni -->
     <section class="reviews-sticky-container">
         <div class="reviews-sticky-viewport">
             <h2 class="reviews-title">Cosa dicono di <span class="italic-font">me</span>.</h2>
             <div class="cards-wrapper">
-                <!-- Card 1 -->
                 <div class="review-card" id="card1">
                     <div class="card-header">
                         <div class="author-avatar-wrapper">
@@ -1006,7 +989,6 @@
                         Se si cerca affidabilità, attenzione ai dettagli e competenza, è questa l’esperienza da scegliere.</p>
                     <div class="review-author">PAMELA PERROTTA — Artista</div>
                 </div>
-                <!-- Card 2 -->
                 <div class="review-card" id="card2">
                     <div class="card-header">
                         <div class="author-avatar-wrapper">
@@ -1024,7 +1006,6 @@
                     <p class="review-text">L'attenzione ai dettagli visivi e la pulizia del codice sono di un altro pianeta. Il fattore estetico minimalista si fonde perfettamente con le performance del nostro ecosistema.</p>
                     <div class="review-author">ELENA V. — CREATIVE DIRECTOR</div>
                 </div>
-                <!-- Card 3 -->
                 <div class="review-card" id="card3">
                     <div class="card-header">
                         <div class="author-avatar-wrapper">
@@ -1048,19 +1029,20 @@
         <div class="scroll-trigger" data-card="2"></div>
         <div class="scroll-trigger" data-card="3"></div>
     </section>
- <div class="works-action-container">
-            <a href="about.html" class="works-btn-cta interactable">Scopri di più</a>
-        </div>
-   
-   <footer class="footer">
-    <div class="footer-credits">
-        <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
+
+    <div class="works-action-container">
+        <a href="about.html" class="works-btn-cta interactable">Scopri di più</a>
     </div>
-    <ul class="footer-links">
-        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-        <li><a href="contatti.html" class="footer-link">Contatti</a></li>
-    </ul>
-</footer>
+   
+    <footer class="footer">
+        <div class="footer-credits">
+            <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="contatti.html" class="footer-link">Contatti</a></li>
+        </ul>
+    </footer>
     
     <script>
         // Gestione Menu Mobile Hamburger ed effetti Wow
@@ -1102,7 +1084,7 @@
         let ringX = window.innerWidth / 2;
         let ringY = window.innerHeight / 2;
 
-       let localMouseX = canvas.width / 2;
+        let localMouseX = canvas.width / 2;
         let localMouseY = canvas.height / 2;
         let isInteracting = false;
         let interactionIntensity = 0;
@@ -1122,12 +1104,11 @@
         // Calcola la posizione del mouse RELATIVA al canvas
         function updateCoordinates(clientX, clientY) {
             const rect = canvas.getBoundingClientRect();
-            // Mappa le coordinate client direttamente sul rettangolo fisico del canvas
             localMouseX = ((clientX - rect.left) / rect.width) * w;
             localMouseY = ((clientY - rect.top) / rect.height) * h;
         }
 
-        // Il mouse traccia le coordinate globali (per il cursore personalizzato)
+        // Il mouse traccia le coordinate globali
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1157,11 +1138,8 @@
         });
 
         let time = 0;
-
-        // Inizializzazione della tonalità di partenza (corrisponde al rosa originario)
         let currentHue = 332 / 360;
 
-        // Funzione di supporto per convertire HSL in RGB
         function hslToRgb(h, s, l) {
             let r, g, b;
             if (s === 0) {
@@ -1202,13 +1180,9 @@
             }
 
             time += 0.012 + (interactionIntensity * 0.015);
-
-            // Incremento ciclico della tonalità.
-            // Modificare il valore 0.0003 per variare la velocità del cambio colore.
             currentHue += 0.0003;
             if (currentHue > 1) currentHue -= 1;
 
-            // Generazione del colore RGB dinamico basato sui parametri HSL correnti
             const targetColor = hslToRgb(currentHue, 0.85, 0.70);
 
             for (let y = 0; y < h; y++) {
@@ -1230,7 +1204,6 @@
 
                     const pixelIndex = (x + y * w) * 4;
 
-                    // Fusione tra lo sfondo scuro preesistente e la tonalità dinamica calcolata
                     data[pixelIndex]     = Math.floor(14 * (1 - plasmaFactor) + targetColor[0] * plasmaFactor);
                     data[pixelIndex + 1] = Math.floor(8 * (1 - plasmaFactor) + targetColor[1] * plasmaFactor);  
                     data[pixelIndex + 2] = Math.floor(21 * (1 - plasmaFactor) + targetColor[2] * plasmaFactor);
@@ -1270,6 +1243,6 @@
         }, observerOptions);
 
         triggers.forEach(trigger => observer.observe(trigger));
-</script>
-     </body>
+    </script>
+</body>
 </html>
