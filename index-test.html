@@ -22,7 +22,7 @@
             --accent-cyan: #00f0ff;
             --accent-blue: #4d61ff;
             --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
+            --text-secondary: #8a8891;
             --glass-bg: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-blur: 20px;
@@ -276,13 +276,11 @@
         }
 
         .hero-subtitle {
-            font-size: 0.95rem;
-            color: #d0d9e7;
-            max-width: 540px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
             line-height: 1.6;
-            font-weight: 300;
-            margin-bottom: 40px;
-            pointer-events: none;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 45px;
         }
 
         .hero-cta {
@@ -327,7 +325,7 @@
             text-align: center;
             max-width: 700px;
             padding: 0 20px;
-            margin-bottom: 100px; /* Aumentato per dare spazio all'effetto arco */
+            margin-bottom: 20px; /* Aumentato per dare spazio all'effetto arco */
         }
 
         .works-title-center {
@@ -357,7 +355,7 @@
         .gallery-perspective-container {
             width: 100%;
             max-width: 100%;
-            padding: 80px 40px; /* Aumentato per evitare clipping dell'ombra in hover */
+            padding: 20px 40px; /* Aumentato per evitare clipping dell'ombra in hover */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -441,7 +439,7 @@
 
         /* Hover delle card - Sollevamento ridotto (da -50px a -30px), scala più morbida (da 1.12 a 1.05) e bagliore bianco ultra-delicato */
         .work-card:hover {
-            transform: translateY(-5px) rotateY(0deg) scale(1) !important;
+            transform: translateY(-5px) rotateY(0deg) scale(1.09) !important;
             filter: brightness(1) !important;
             z-index: 12;
             /* Bagliore bianco molto più soffuso e meno accecante */
@@ -459,7 +457,7 @@
             padding: 18px 36px;
             border-radius: 100px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 400;
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -657,15 +655,17 @@
         .footer {
             width: 100%;
             max-width: 1200px;
-            margin: 120px auto 0 auto; /* Centra il footer orizzontalmente tramite i margini auto */
-            padding: 40px 20px; /* Aggiunti 20px di padding laterale per non far toccare i bordi */
+            margin: 120px auto 0 auto; 
+            padding: 40px 20px; 
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Imposta la disposizione in colonna per centrare verticalmente gli elementi */
+            justify-content: center;
             align-items: center;
+            text-align: center; /* Centra i testi */
             gap: 20px;
+            box-sizing: border-box; 
             z-index: 10;
-            box-sizing: border-box; /* Assicura il calcolo perfetto di padding e larghezza */
         }
 
         .footer-credits {
@@ -689,7 +689,9 @@
             transition: color 0.3s ease;
         }
 
-        .footer-link:hover { color: var(--text-primary); }
+        .footer-link:hover { 
+            color: #ffffff; /* Bianco puro all'hover */
+        }
 
         /* ==========================================================================
            COMPLETO FIX RESPONSIVE (PREVIENE OVERFLOW ORIZZONTALE)
@@ -916,7 +918,7 @@
     <section class="works-section">
         <div class="works-header-center">
             <h2 class="works-title-center">I miei <span class="italic-font">progetti.</span></h2>
-            <p class="works-desc-center">Una selezione curata di produzioni visive, branding ed ecosistemi digitali d'avanguardia.</p>
+            <p class="hero-subtitle">Una selezione curata di produzioni visive, branding ed ecosistemi digitali d'avanguardia.</p>
         </div>
 
         <div class="gallery-perspective-container">
