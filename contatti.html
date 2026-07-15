@@ -22,7 +22,7 @@
             --accent-cyan: #00f0ff;
             --accent-sad: #4a3b6e;
             --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
+            --text-secondary: #8a8891;
             --glass-bg: rgba(255, 255, 255, 0.01);
             --glass-border: rgba(255, 255, 255, 0.06);
             --glass-blur: 30px;
@@ -439,21 +439,20 @@
         }
        
         .footer {
-    width: 100%;
-    max-width: 1200px;
-    margin: 120px auto 0 auto;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column; /* Dispone gli elementi in verticale (su due righe) */
-    justify-content: center; /* Centra il contenuto verticalmente */
-    align-items: center;     /* Centra il contenuto orizzontalmente */
-    gap: 15px;               /* Spazio tra la prima e la seconda riga */
-    z-index: 10;
-    box-sizing: border-box;
-    text-align: center;      /* Forza la centratura del testo */
-}
-
+            width: 100%;
+            max-width: 1200px;
+            margin: 120px auto 0 auto; 
+            padding: 40px 20px; 
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column; /* Imposta la disposizione in colonna per centrare verticalmente gli elementi */
+            justify-content: center;
+            align-items: center;
+            text-align: center; /* Centra i testi */
+            gap: 20px;
+            box-sizing: border-box; 
+            z-index: 10;
+        }
 
         .footer-credits {
             font-size: 0.75rem;
@@ -476,7 +475,9 @@
             transition: color 0.3s ease;
         }
 
-        .footer-link:hover { color: var(--text-primary); }
+        .footer-link:hover { 
+            color: #ffffff; /* Bianco puro all'hover */
+        }
        
 
         @media (max-width: 768px) {
