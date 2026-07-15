@@ -1099,7 +1099,7 @@
         let ringX = window.innerWidth / 2;
         let ringY = window.innerHeight / 2;
 
-        let localMouseX = canvas.width / 2;
+       let localMouseX = canvas.width / 2;
         let localMouseY = canvas.height / 2;
         let isInteracting = false;
         let interactionIntensity = 0;
@@ -1116,17 +1116,22 @@
         const w = canvas.width;
         const h = canvas.height;
 
+        // Calcola la posizione del mouse RELATIVA al canvas
         function updateCoordinates(clientX, clientY) {
-            const rect = heroArea.getBoundingClientRect();
-            const canvasX = clientX - rect.left - (rect.width / 2) + (w / 2);
-            const canvasY = clientY - rect.top - (rect.height / 2) + (h / 2);
-            localMouseX = (canvasX / (rect.width / 2)) * w;
-            localMouseY = (canvasY / (rect.height / 2)) * h;
+            const rect = canvas.getBoundingClientRect();
+            // Mappa le coordinate client direttamente sul rettangolo fisico del canvas
+            localMouseX = ((clientX - rect.left) / rect.width) * w;
+            localMouseY = ((clientY - rect.top) / rect.height) * h;
         }
 
+        // Il mouse traccia le coordinate globali (per il cursore personalizzato)
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+        });
+
+        // L'interazione con il fluido avviene SOLO dentro l'Hero Area
+        heroArea.addEventListener('mousemove', (e) => {
             updateCoordinates(e.clientX, e.clientY);
         });
 
