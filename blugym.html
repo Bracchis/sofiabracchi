@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dettaglio Progetto - Fashion Gallery</title>
+    <title>SB - Blu Gym</title>
    
+    <meta name="description" content="Sofia Bracchi | Digital Designer & Developer. Architetture web su misura dove estetica e codice nativo si incontrano. Design senza compromessi, lontano dai template.">
+    <meta name="robots" content="index, follow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
 
     <style>
         :root {
@@ -84,6 +87,12 @@
             background-color: rgba(255, 101, 163, 0.05);
         }
 
+         .logo-img {
+    height: 30px; /* Regola l'altezza in base alle tue esigenze */
+    width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
+    display: block;
+}
+
         /* ==========================================================================
            NAVBAR (Minimal Glass)
            ========================================================================== */
@@ -106,7 +115,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 20px 20px;
         }
 
         .nav-logo {
@@ -222,9 +231,6 @@
             font-weight: 400;
             letter-spacing: 0em;
             color: #ffffff;
-      <!--  background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);-->
-      <!--      -webkit-background-clip: text;-->
-      <!--      -webkit-text-fill-color: transparent;-->
         }
 
         .hero-subtitle {
@@ -369,14 +375,12 @@
         width: 48px;
         height: 48px;
     }
-
+}
         /* ==========================================================================
            ADATTAMENTO MOBILE
            ========================================================================== */
         @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
+           .hamburger { display: flex; }
            
             .nav-menu {
                 position: fixed;
