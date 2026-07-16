@@ -36,10 +36,10 @@
         }
 
         body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+    background-color: #050505; /* Colore di base, ma non bloccante */
+    color: #ffffff;
+    overflow-x: hidden;
+}
        
         /* ==========================================================================
            PUNTATORE MOUSE PERSONALIZZATO
@@ -266,51 +266,50 @@
         }
 
        /* --- BACKGROUND CORRETTO (Mood Scuro/Desaturato) --- */
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(180deg, 
-                #050505 0%, 
-                #2a1818 30%, 
-                #2a2a15 60%, 
-                #05151a 100%);
-            background-size: 100% 300%;
-            animation: gradientShift 15s ease infinite;
-        }
+      /* --- BACKGROUND CON MOVIMENTO ACCENTUATO --- */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Ho ingrandito il gradiente a 400% per creare più aree di colore in movimento */
+    background: linear-gradient(120deg, #050505 0%, #2a1818 30%, #2a2a15 60%, #05151a 90%, #050505 100%);
+    background-size: 400% 400%;
+    /* Animazione più rapida (10s) e lineare per un flusso costante */
+    animation: gradientShift 10s ease infinite;
+}
 
-        .bg-container::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: radial-gradient(circle, #ffffff 0.5px, transparent 0.5px);
-            background-size: 8px 8px;
-            pointer-events: none;
-        }
+.bg-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2; 
+    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
 
-      @keyframes gradientShift {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 0% 50%; }
-            100% { background-position: 0% 0%; }
-        }
-     
-        /* --- OVERLAY SCURO --- */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 100%);
-            z-index: 1;
-        }
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+       .project-hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent; /* Rimosso #0a0a0a per far vedere il bg-container */
+    }
        
         /* Pulsante Torna Indietro */
 .btn-back {
@@ -521,7 +520,7 @@
                 Ossidiana
             </h1>
             <p class="hero-subtitle">
-               "ossidiana è un viaggio emotivo e simbolico attraverso strati d'identità, dalla superficie esterna 
+               "Ossidiana è un viaggio emotivo e simbolico attraverso strati d'identità, dalla superficie esterna 
               alla profondità dell'anima, culminando in un atto di liberazione e catarsi. Questo percorso offre 
               una narrazione sulla scoperta di sé, sull'autenticità e sulla ricerca di liberazione interiore." - Incipit
             </p>
