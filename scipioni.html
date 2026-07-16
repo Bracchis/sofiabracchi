@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Progetto - Fashion Gallery</title>
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0b0813;
+            --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
+            --accent-neutral-glow: rgba(163, 150, 137, 0.25);
+            --accent-pink: #ff65a3;
+            --accent-pink-glow: rgba(255, 101, 163, 0.25);
+            --accent-blue: #4d61ff;
+            --text-primary: #ffffff;
+            --text-secondary: #8a8891;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: 20px;
+        }
+       
+        /* --- RESET E STILI BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+       
+        /* ==========================================================================
+           PUNTATORE MOUSE PERSONALIZZATO
+           ========================================================================== */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        .cursor-ring {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.3s ease,
+                        background-color 0.3s ease;
+            z-index: 9999;
+        }
+
+        .custom-cursor.expand .cursor-ring {
+            width: 56px;
+            height: 56px;
+            border-color: var(--accent-neutral);
+            background-color: rgba(255, 101, 163, 0.05);
+        }
+
+        /* ==========================================================================
+           NAVBAR (Minimal Glass)
+           ========================================================================== */
+        .navbar-container {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            z-index: 100;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            z-index: 120;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s ease, font-family 0.3s ease, font-style 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-transform: none;
+            letter-spacing: 0.02em;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            z-index: 120;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+       
+        /* --- HERO SECTION CONTAINER --- */
+        .project-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0a0a0a;
+        }
+
+        /* --- CONTENUTO CENTRATO --- */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 650px;
+            padding: 120px 24px 0 24px;
+            color: #ffffff;
+        }
+
+        /* Etichetta UX/UI Design */
+        .hero-tag {
+            display: inline-block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #00f0ff; <!--var(--accent-neutral)-->
+            margin-bottom: 25px;
+        }
+
+        .hero-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 4.4rem;
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            pointer-events: none;
+        }
+
+        .hero-title span.italic-font {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 0em;
+            color: #ffffff;
+      <!--  background: linear-gradient(135deg, #ffffff 40%, var(--accent-neutral) 100%);-->
+      <!--      -webkit-background-clip: text;-->
+      <!--      -webkit-text-fill-color: transparent;-->
+        }
+
+        .hero-subtitle {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 45px;
+        }
+       
+        .hero-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: #ffffff;
+            color: #0b0813;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 100px;
+             transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            outline: 1px solid transparent;
+            cursor: none;
+        }
+
+        .hero-cta:hover {
+            background-color: var(--bg-color);
+             background-color: #00f0ff; /* Sostituisci con var(--accent-cyan) se hai la variabile attiva */
+            transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+        }
+
+        /* --- GRIGLIA DI SFONDO --- */
+        .hero-grid-bg {
+            position: absolute;
+            top: -10%;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+            opacity: 0.35;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* --- SINGOLA COLONNA --- */
+        .grid-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Contenitore Immagine (Quadrato) */
+        .img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: #151515;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(15%);
+            transition: opacity 0.5s ease;
+        }
+
+        /* --- ANIMAZIONI DI SCORRIMENTO (LOOP) --- */
+        .col-up { animation: scrollUp 25s linear infinite; }
+        .col-up-slow { animation: scrollUp 35s linear infinite; }
+        .col-down { animation: scrollDown 28s linear infinite; }
+        .col-down-slow { animation: scrollDown 32s linear infinite; }
+
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0); }
+        }
+
+        /* --- OVERLAY SCURO --- */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 100%);
+            z-index: 1;
+        }
+       
+        /* Pulsante Torna Indietro */
+.btn-back {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
+    background-color: #ffffff;
+    color: #06040a;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 90;
+    cursor: none; /* Rimuove il cursore di sistema se usi quello personalizzato, altrimenti imposta su 'pointer' */
+}
+
+.btn-back svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #00f0ff; /* Sostituisci con var(--accent-cyan) se hai la variabile attiva */
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+}
+
+.btn-back:hover svg {
+    transform: translateX(-3px);
+}
+
+/* Ottimizzazione per dispositivi Mobile */
+@media (max-width: 768px) {
+    .btn-back {
+        bottom: 25px;
+        right: 25px;
+        width: 48px;
+        height: 48px;
+    }
+
+        /* ==========================================================================
+           ADATTAMENTO MOBILE
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+           
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(11, 8, 19, 1);
+                backdrop-filter: blur(40px) saturate(180%);
+                -webkit-backdrop-filter: blur(40px) saturate(180%);
+                flex-direction: column;
+                justify-content: center;
+                gap: 30px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.5s ease;
+                z-index: 110;
+            }
+
+            .nav-menu::before, .nav-menu::after {
+                content: '';
+                position: absolute;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                filter: blur(80px);
+                opacity: 0;
+                transition: opacity 0.8s ease, transform 0.8s ease;
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            .nav-menu::before {
+                background: var(--accent-pink);
+                top: 15%;
+                left: -10%;
+                transform: translate(-50px, -50px);
+            }
+
+            .nav-menu::after {
+                background: var(--accent-blue);
+                bottom: 15%;
+                right: -10%;
+                transform: translate(50px, 50px);
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-menu.active::before { opacity: 0.25; transform: translate(0, 0); }
+            .nav-menu.active::after { opacity: 0.25; transform: translate(0, 0); }
+
+            .nav-menu li {
+                transform: translateY(30px);
+                opacity: 0;
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            }
+
+            .nav-menu.active li {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-menu.active li:nth-child(2) { transition-delay: 0.18s; }
+            .nav-menu.active li:nth-child(3) { transition-delay: 0.26s; }
+            .nav-menu.active li:nth-child(4) { transition-delay: 0.34s; }
+
+            .nav-link {
+                font-size: 1.6rem;
+                text-transform: uppercase;
+                display: inline-block;
+            }
+
+            .nav-link.active {
+                font-size: 2.2rem;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                width: 0;
+                height: 1px;
+                background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .nav-link:hover::after, .nav-link.active::after {
+                width: 100%;
+                left: 0;
+            }
+           
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
+           
+            .hero-content {
+                padding: 100px 20px 0 20px;
+            }
+           
+            .hero-title {
+                font-size: 2.8rem;
+            }
+           
+            .hero-grid-bg {
+                grid-template-columns: repeat(2, 1fr);
+            }
+           
+            .col-up-slow, .col-down-slow {
+                display: none;
+            }
+           
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="project-hero">
+        <!-- Griglia di Sfondo con Immagini -->
+        <div class="hero-grid-bg">
+            <!-- Colonna 1 -->
+            <div class="grid-column col-up">
+                <div class="img-wrapper"><img src="assets/img/scipioni.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_biglietti_visita.png"alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_buste.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_buste_adesivo.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_carta_intestata.png" alt="Studio Odontoiatrico Scipioni"></div>
+            </div>
+           
+            <!-- Colonna 2 -->
+            <div class="grid-column col-down">
+                <div class="img-wrapper"><img src="assets/img/scipioni_cartella.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_cartella_pazienti.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_desk.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_lettera.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_logo.png" alt="Studio Odontoiatrico Scipioni"></div>
+            </div>
+
+            <!-- Colonna 3 -->
+            <div class="grid-column col-up-slow">
+                <div class="img-wrapper"><img src="assets/img/scipioni.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_biglietti_visita.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_buste.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_buste_adesivo.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_carta_intestata.png" alt="Studio Odontoiatrico Scipioni"></div>
+            </div>
+
+            <!-- Colonna 4 -->
+            <div class="grid-column col-down-slow">
+                <div class="img-wrapper"><img src="assets/img/scipioni_cartella.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_cartella_pazienti.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_desk.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_lettera.png" alt="Studio Odontoiatrico Scipioni"></div>
+                <div class="img-wrapper"><img src="assets/img/scipioni_logo.png" alt="Studio Odontoiatrico Scipioni"></div>
+            </div>
+        </div>
+
+        <!-- Overlay Sfumato -->
+        <div class="hero-overlay"></div>
+       
+        <div class="custom-cursor" id="customCursor">
+            <div class="cursor-dot" id="cursorDot"></div>
+            <div class="cursor-ring" id="cursorRing"></div>
+        </div>
+
+         <div class="navbar-container">
+        <nav class="navbar">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Apri menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="servizi.html" class="nav-link">Servizi</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contatti.html" class="nav-link">Contatti</a></li>
+            </ul>
+        </nav>
+    </div>
+
+        <!-- Contenuto Centrale -->
+        <div class="hero-content">
+            <span class="hero-tag">UX/UI Design</span>
+            <h1 class="hero-title">
+                Pamela <span class="italic-font">Perrotta</span>
+            </h1>
+            <p class="hero-subtitle">
+               Progettazione e sviluppo del sito web su misura. Un'architettura digitale scritta interamente in HTML, CSS e JavaScript nativo, senza l'uso di template predefiniti.
+            </p>
+            <a href="https://www.pamelaperrotta.art/" class="hero-cta interactable">Visita il sito</a>
+        </div>
+    </section>
+    <a href="javascript:history.back()" class="btn-back interactable" aria-label="Torna indietro">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+    </svg>
+</a>
+
+    <!-- JavaScript per UX e Animazioni -->
+    <script>
+        //btn torna inditero
+        document.querySelectorAll('.interactable').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+});
+
+//menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+       
+        const cursor = document.getElementById('customCursor');
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let dotX = mouseX, dotY = mouseY, ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            dotX += (mouseX - dotX); dotY += (mouseY - dotY);
+            ringX += (mouseX - ringX) * 0.16; ringY += (mouseY - ringY) * 0.16;
+            dot.style.left = `${dotX}px`; dot.style.top = `${dotY}px`;
+            ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function bindCursorEvents() {
+            document.querySelectorAll('.interactable').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+            });
+        }
+        bindCursorEvents();
+       
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = document.querySelectorAll('.img-wrapper img');
+            images.forEach(img => {
+                img.style.opacity = '0';
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+                if (img.complete) {
+                    img.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
