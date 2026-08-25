@@ -6,25 +6,26 @@
     <title>SB - About</title>
 
     <meta name="robots" content="index, follow">
-
     <meta name="description" content="Scopri la mia storia, il mio approccio al Graphic & Web Design e come posso aiutarti a valorizzare il tuo brand.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=1,300;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght=300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
     <style>
         :root {
             --bg-color: #06040a;
-            --accent-neutral: #a04555; /* Tortora/Champagne desaturato */
+            --accent-neutral: #a04555;
             --accent-neutral-glow: rgba(163, 150, 137, 0.25);
             --accent-pink: #ff65a3;
-             --accent-pink-glow: rgba(255, 101, 163, 0.25);
-              --accent-blue: #4d61ff;
+            --accent-pink-glow: rgba(255, 101, 163, 0.25);
+            --accent-blue: #4d61ff;
             --accent-cyan: #00f0ff;
             --accent-purple: #8b5cf6;
             --text-primary: #ffffff;
-          --text-secondary: #8a8891;
-             --glass-bg: rgba(255, 255, 255, 0.02);
+            --text-secondary: #8a8891;
+            --glass-bg: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-blur: 20px;
         }
@@ -86,11 +87,12 @@
         }
 
         .logo-img {
-    height: 30px; /* Regola l'altezza in base alle tue esigenze */
-    width: auto;  /* Mantiene le proporzioni corrette dell'immagine */
-    display: block;
-}
-           /* ==========================================================================
+            height: 30px;
+            width: auto;
+            display: block;
+        }
+
+        /* ==========================================================================
            NAVBAR (Minimal Glass)
            ========================================================================== */
         .navbar-container {
@@ -178,13 +180,13 @@
         }
 
         /* ==========================================================================
-           SFONDO PARALLAX LIMITATO ALLA SEZIONE ABOUT
+           SFONDO PARALLAX SEZIONE ABOUT
            ========================================================================== */
         .background-wrapper {
-            position: absolute; /* Modificato da fixed ad absolute */
-           top: 20%; /* Parte dal 20% dall'alto su desktop */
+            position: absolute;
+            top: 20%;
             width: 100%; height: 100%;
-            z-index: 1; /* Rimane sotto al testo ma sopra al colore di sfondo */
+            z-index: 1;
             pointer-events: none;
             overflow: hidden;
         }
@@ -209,12 +211,12 @@
             background-position: center;
             background-attachment: fixed;
             filter: grayscale(100%) brightness(0.6);
-           
+            
             -webkit-mask-image: radial-gradient(circle 350px, black 10%, rgba(0,0,0,0) 60%);
             mask-image: radial-gradient(circle 350px, black 10%, rgba(0,0,0,0) 60%);
             -webkit-mask-size: 200% 200%;
             mask-size: 200% 200%;
-           
+            
             animation: roamingFocus 25s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
         }
 
@@ -227,74 +229,68 @@
         }
 
         /* ==========================================================================
-           CONTENUTO BIO
+           CONTENUTO BIO (Migliorato per Tipografia Pulita)
            ========================================================================== */
         .about-section {
             position: relative;
             width: 100%;
-            padding: 240px 4% 160px 4%;
+            padding: 220px 4% 140px 4%;
             display: flex;
             justify-content: center;
             z-index: 2;
         }
 
         .bio-container {
-            max-width: 800px;
+            max-width: 780px;
             width: 100%;
             padding: 0 20px;
         }
 
-        .bio-subtitle, .bio-title, .bio-text {
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0,0,0,0.7);
-        }
-
-        .bio-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.4rem;
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
-            letter-spacing: 0.05em;
-        }
-
         .bio-title {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 300;
-            line-height: 1;
-            margin-bottom: 50px;
-            letter-spacing: -0.02em;
+            line-height: 0.95;
+            margin-bottom: 45px;
+            letter-spacing: -0.03em;
+            /* Ombra minimale, molto più pulita */
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .bio-title span {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
+            font-weight: 400;
         }
 
         .bio-text {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 24px;
         }
 
         .bio-text p {
-            font-size: 0.8rem;
-            line-height: 1.6;
-            color: #ffffff;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.88);
             font-weight: 300;
+            letter-spacing: 0.01em;
+            /* Ridotta l'ombra pesante per massima pulizia */
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
         }
 
-       .bio-text p strong {
-           font-size: 1.3rem;
-    font-weight: 500;
-           color: #ffffff;
- /*   background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;  Fallback per i browser meno recenti */
-}
+        /* Grassetto: Elegante, Uppercase, Senza stacchi visivi eccessivi */
+        .bio-text p strong {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ffffff;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
         /* ==========================================================================
-           NUOVA SEZIONE GENERATIVA (Sostituzione Dischi con Mesh di Luci Fluide)
+           SEZIONE CTA GENERATIVA
            ========================================================================== */
         .cta-3d-section {
             position: relative;
@@ -308,7 +304,6 @@
             z-index: 3;
         }
 
-        /* Canvas astratto per le luci fluide automatiche */
         .ambient-canvas {
             position: absolute;
             width: 100%;
@@ -327,7 +322,6 @@
             will-change: transform;
         }
 
-        /* Configurazione e coreografie automatiche dei vettori di luce */
         .glow-1 {
             width: 550px; height: 550px;
             background: radial-gradient(circle, var(--accent-purple) 0%, rgba(0,0,0,0) 70%);
@@ -349,7 +343,6 @@
             animation: driftThird 18s infinite alternate ease-in-out;
         }
 
-        /* Animazioni fluide e organiche indipendenti dal mouse */
         @keyframes driftFirst {
             0% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(120px, 80px) scale(1.15); }
@@ -368,7 +361,6 @@
             100% { transform: translate(-20px, -60px) scale(1); opacity: 0.3; }
         }
 
-        /* Layout Messaggio Centrale CTA */
         .cta-content {
             position: relative;
             z-index: 5;
@@ -383,7 +375,7 @@
             line-height: 1.2;
             letter-spacing: -0.01em;
             margin-bottom: 40px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+            text-shadow: 0 6px 20px rgba(0,0,0,0.6);
         }
 
         .cta-heading span {
@@ -440,9 +432,9 @@
             background: rgba(255, 255, 255, 0.05);
             transform: translateY(-3px);
         }
-       
-         /* ==========================================================================
-           FOOTER (Solid Background)
+        
+        /* ==========================================================================
+           FOOTER
            ========================================================================== */
         .footer-container {
             width: 100%;
@@ -454,20 +446,21 @@
         }
 
         .footer {
-    width: 100%;
-    max-width: 1200px;
-    margin: 120px auto 0 auto;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column; /* Dispone gli elementi in verticale (su due righe) */
-    justify-content: center; /* Centra il contenuto verticalmente */
-    align-items: center;     /* Centra il contenuto orizzontalmente */
-    gap: 15px;               /* Spazio tra la prima e la seconda riga */
-    z-index: 10;
-    box-sizing: border-box;
-    text-align: center;      /* Forza la centratura del testo */
-}
+            width: 100%;
+            max-width: 1200px;
+            margin: 120px auto 0 auto;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
         .footer-credits {
             font-size: 0.75rem;
             color: var(--text-secondary);
@@ -495,8 +488,8 @@
            RESPONSIVE
            ========================================================================== */
         @media (max-width: 768px) {
-           .hamburger { display: flex; }
-           
+            .hamburger { display: flex; }
+            
             .nav-menu {
                 position: fixed;
                 top: 0;
@@ -591,51 +584,49 @@
                 width: 100%;
                 left: 0;
             }
-           
+            
             .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #fff; }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #fff; }
-       
-       
+
             .about-section { padding-top: 150px; padding-bottom: 100px; }
-            .bio-title { font-size: 2.8rem; }
+            .bio-title { font-size: 3rem; }
             .bg-layer-sharp { animation: roamingFocusMobile 20s infinite alternate ease-in-out; }
             .navbar { padding: 20px 20px; }
-           
+            
             .cta-heading { font-size: 2.2rem; }
             .cta-button-group { flex-direction: column; gap: 16px; width: 100%; }
             .btn-primary, .btn-secondary { width: 100%; text-align: center; }
 
             .btn-secondary {
-            display: inline-block;
-            padding: 16px 36px;
-            background: transparent;
-            color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: none;
-        }
+                display: inline-block;
+                padding: 16px 36px;
+                background: transparent;
+                color: #ffffff;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-size: 0.75rem;
+                font-weight: 400;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                text-decoration: none;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 100px;
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                cursor: none;
+            }
 
-        .btn-secondary:hover {
-            background-color: #ffffff;
-            color: #0b0813;
-            border-color: #ffffff;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-        }
+            .btn-secondary:hover {
+                background-color: #ffffff;
+                color: #0b0813;
+                border-color: #ffffff;
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            }
 
-           
             .fluid-glow { filter: blur(90px); opacity: 0.35; }
             .glow-1 { width: 300px; height: 300px; }
             .glow-2 { width: 350px; height: 350px; }
             .glow-3 { width: 250px; height: 250px; }
-           
+            
             .footer {
                 flex-direction: column;
                 gap: 15px;
@@ -668,8 +659,8 @@
     <div class="navbar-container">
         <nav class="navbar">
             <a href="index.html" class="nav-logo">
-            <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
-        </a>
+                <img src="assets/img/logo_sofia_bracchi.png" alt="SB" class="logo-img">
+            </a>
             <button class="hamburger" id="hamburger" aria-label="Apri menu">
                 <span></span>
                 <span></span>
@@ -688,18 +679,25 @@
     <section class="about-section">
         <div class="bio-container">
             <h1 class="bio-title">About<br><span>me.</span></h1>
-           
+            
             <div class="bio-text">
-                <p>Sono laureata in Graphic & Web Design e progetto interfacce da anni. Il mio approccio? <br><strong>Fresco, dinamico, dritto all'obiettivo.</strong></p>
-               
-                <p>Nella grafica chi si ferma scompare. Per questo non smetto mai di formarmi, esplorare nuovi tool e alzare l'asticella.</p>
+                <p>
+                    Sono laureata in Graphic & Web Design e progetto interfacce da anni.<br>
+                    <strong>Fresco, dinamico, dritto all'obiettivo.</strong> È così che definisco il mio approccio.
+                </p>
                 
-                <p><strong>Lascio che siano i miei progetti a parlare per me.</strong></p>
+                <p>
+                    Nella grafica chi si ferma scompare. Per questo continuo a formarmi ogni giorno, esplorando nuovi tool e alzando costantemente l'asticella.
+                </p>
+                
+                <p>
+                    <strong>Lascio che siano i miei progetti a parlare per me.</strong>
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Sezione CTA con Sfondo d'Ambiente Automatico -->
+    <!-- Sezione CTA -->
     <section class="cta-3d-section" id="parallaxCtaSection">
         <div class="ambient-canvas">
             <div class="fluid-glow glow-1"></div>
@@ -715,26 +713,26 @@
             </div>
         </div>
     </section>
-   
-     <footer class="footer">
-    <div class="footer-credits">
-        <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
-    </div>
-    <ul class="footer-links">
-        <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-        <li><a href="contatti.html" class="footer-link">Contatti</a></li>
-    </ul>
-</footer>
+    
+    <footer class="footer">
+        <div class="footer-credits">
+            <p>© 2026 Sofia Bracchi. Tutti i diritti riservati.</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="contatti.html" class="footer-link">Contatti</a></li>
+        </ul>
+    </footer>
 
     <script>
-         // Gestione Menu Mobile Hamburger ed effetti Wow
+        // Gestione Menu Mobile
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
-           
+            
             if(navMenu.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -749,8 +747,8 @@
                 document.body.style.overflow = 'auto';
             });
         });
-       
-        // Cursore personalizzato flessibile
+        
+        // Custom Cursor
         const cursor = document.getElementById('customCursor');
         const dot = document.getElementById('cursorDot');
         const ring = document.getElementById('cursorRing');
